@@ -1,0 +1,118 @@
+﻿@model Shifter.Managers.Web.ViewModels.Waiters.StaffListViewModel
+
+@functions
+{
+    public HtmlString BoolIconHelper(bool isCheck)
+    {
+        return new HtmlString(isCheck ? "<span class='glyphicon glyphicon-ok' style='color:green; opacity:0.5'>" : "<span class='glyphicon glyphicon-remove' style='color:red; opacity:0.5'>");
+    }
+}
+
+<div id="staff" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            @{
+                var showErrors = Model.HasErrors ? "showElement" : "hideElement";
+                var showMessage = Model.HasMessages ? "showElement" : "hideElement";
+            }
+
+            <div id="errorBox" class="alert alert-danger alert-dismissable timeoutAlert @showErrors">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <div id="errorMessages">
+                    @foreach (var error in Model.Errors)
+                    {
+                        <div>@error.Text</div>
+                    }
+                </div>
+            </div>
+            <div id="infoBox" class="alert alert-success alert-dismissable timeoutAlert @showMessage">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <div id="infoMessages">
+                    @foreach (var msg in Model.Messages)
+                    {
+                        <div>@msg.Text</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-8">@Html.ActionLink("Add Staff", "Add", null, new { @class = "btn btn-success addWaiterHelp" })</div>
+
+        <div class="col-xs-4">
+            <label>Search:<input id="seachBox" class="form-control input-sm"></label>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table id="staffTable" class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th class="lastSeenWaiterHelp">Last seen</th>
+                        <th>Number</th>
+                        <th class="visible-lg emailWaiterHelp">Email</th>
+                        <th class="visible-lg maxShiftsWaiterHelp">Max shifts</th>
+                        <th class="visible-lg canSwapWaiterHelp">Swap</th>
+                        <th class="visible-lg">Doubles</th>
+                        <th class="visible-lg">Experienced</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var member in Model.StaffList)
+                        {
+                            <!--Data attributes used for Additional Info table construction-->
+                            <tr class="memberRow" data-member-name="@member.FullName.ToLower()">
+                                <td>@member.FullName</td>
+                                <td>@member.StaffType.Name</td>
+                                <td>@member.FormattedLastActiveDate</td>
+                                <td>@member.ContactNumber</td>
+                                <td class="visible-lg">@member.EmailAddress</td>
+                                <td class="visible-lg" style="width:50px;">@member.MaxNumberOfShiftsPerWeek</td>
+                                <td>@BoolIconHelper(member.CanSwapShifts)</td>
+                                <td class="visible-lg">@BoolIconHelper(member.CanWorkDoubles)</td>
+                                <td class="visible-lg">@BoolIconHelper(member.IsExperienced)</td>
+                                <td style="width:80px !important;">
+                                    @Html.ActionLink("Edit", "Edit", new { id = member.Id }, new { @class = "btn btn-success editButton visible-lg" })
+                                @Html.ActionLink("Edit", "Edit", new { id = member.Id }, new { @class = "btn btn-default hidden-lg" })
+                            </td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="elementForAjax">
+    @*Do not delete*@
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var manageWaiters = new ManageWaiters();
+            manageWaiters.Load();
+
+            $("#helpIcon").attr("joyride", "waiterHelp");
+
+            $("#seachBox").keyup(function () {
+                var value = $(this).val().toLowerCase();
+                if (value.length > 0) {
+                    $(".memberRow").hide();
+                    $(".memberRow[data-member-name*='" + value + "']").show();
+                } else {
+                    $(".memberRow").show();
+            }
+            });
+
+        })
+    </script>
+}

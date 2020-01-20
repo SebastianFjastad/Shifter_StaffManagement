@@ -1,0 +1,72 @@
+﻿@using Framework
+@using Shifter.Service.Api.Dtos
+@model Shifter.Managers.Web.ViewModels.Wall.WallPostEditorViewModel
+
+<form id="wallPostForm" method="POST" action="@Url.Action("SaveWallPost", "Wall")">
+    @Html.Hidden("WallPost.Id", Model.WallPost.Id)
+    @Html.Hidden("WallPost.PostedByType", PostedByType.Manager)
+    @Html.Hidden("WallPost.PostedDate", DateTime.Now)
+    <div class="row post">
+        <div class="col-xs-12">
+            <div style="margin-top: 15px;">
+                <h4>Staff type</h4>
+                <select class="col-xs-7 form-control" name="WallPost.StaffTypeId">
+                    <option value="group">Group posts</option>
+                    @{
+                        foreach (var staffType in Model.StaffTypes)
+                        {
+                            var selected = Model.WallPost.StaffTypeId == staffType.Id ? "selected" : string.Empty;
+                            
+                            <option @selected value="@staffType.Id">@staffType.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <h4 class="postTitleMargin">Title</h4>
+            <div class="postTitleContainer postTitleMargin">
+                <div class="postTitle">
+                    <div class="h3">
+                        <input name="WallPost.Header" class="postHeader" value="@Model.WallPost.Header" />
+                    </div>
+                    <div class="postTitleDate">
+                        <span>Posted on</span> @Model.WallPost.PostedDate.ToString(SharedConstants.DateFormat)
+                    </div>
+                    <div class="postTitleSeenBy">
+                        <span>Seen by @Model.WallPost.SeenByNames.Count()/@Model.WallPost.TotalStaff</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div style="margin-top: 15px;">
+                <h4>Body</h4>
+                <textarea id="editor" name="Content" class="postBodyEditor" >
+                    @Html.Raw(Model.WallPost.Body)
+                </textarea>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    $(function () {
+        initializeTinyMCE();
+
+
+        function initializeTinyMCE() {
+            tinymce.init({
+                selector: "#editor",
+                plugins: [
+                    "advlist autolink lists link image charmap print preview anchor",
+                    "searchreplace visualblocks code fullscreen",
+                    "insertdatetime media table contextmenu paste"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+            });
+        }
+    });
+
+</script>

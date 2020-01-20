@@ -1,0 +1,125 @@
+﻿@using Shifter.Waiters.Web.ViewModels.ManageTimeOff
+@model ManageTimeOffViewModel
+
+<style>
+    .timeOffContainer {
+        min-height: 65px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border: solid;
+        border-width: 1px;
+        border-color: #357ebd;
+        background-color: aliceblue;
+        color: rgb(117, 115, 115);
+    }
+</style>
+
+@foreach (var error in Model.Errors)
+{
+    <div>@error.Text</div>
+}
+
+<div class="col-xs-12" style="padding-top: 15px;">
+    @foreach (var item in Model.Unavailability)
+    {
+        <div class="row">
+            <div class="timeOffContainer form-group">
+                <div class="col-sm-4">
+                    <div class="input-daterange input-group timeOffDates" style="padding-top: 7px;">
+                        <div class="pull-left">
+                            <label>@item.UnavailableFrom.DayOfWeek @item.UnavailableFrom.ToString("dd") @item.UnavailableFrom.ToString("MMM")</label>
+                        </div>
+                        <div class="pull-left">
+                            <span style="padding-left: 15px;padding-right: 15px;"><b>to</b></span>
+                        </div>
+                        <div class="pull-left">
+                            <label class="">@item.UnavailableTo.DayOfWeek @item.UnavailableTo.ToString("dd") @item.UnavailableTo.ToString("MMM")</label><br />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <input class="btn btn-danger removeTimeOff" style="width: 100px;" value="Remove" data-id="@item.Id" data-from-date="@item.UnavailableFrom" data-to-date="@item.UnavailableTo" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="form-group">
+    <input id="addTimeOff" class="btn btn-success" value="Book new time" />
+</div>
+
+<div id="savePopup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Save time off</h4>
+            </div>
+            <div class="modal-body">
+                <form id="saveTimeOffForm" method="POST" action="@Url.Action("SaveTimeOff", "ManageTimeOff")">
+                    <input id="editfrom" type="text" class="input-sm form-control timeOffDates" name="UnavailableFrom" />
+                    <span class="input-group-addon">to</span>
+                    <input id="editTo" type="text" class="input-sm form-control timeOffDates" name="UnavailableTo" />
+                    <input type="hidden" id="timeOffId" name="Id" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="saveTimeOffCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="saveTimeOffConfirm" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirmDeletePopup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete time off</h4>
+            </div>
+            <div class="modal-body">
+                <form id="deleteTimeOffForm" method="POST" action="@Url.Action("DeleteTimeOff", "ManageTimeOff")">
+                    <label id="editFrom" class="input-sm form-control"></label>
+                    <span class="input-group-addon">to</span>
+                    <label id="editTo" class="input-sm form-control"></label>
+                    <input type="hidden" id="timeOffId" name="unavailabilityId" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="deleteTimeOffCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="deleteTimeOffConfirm" type="button" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.timeOffDates').datepicker();
+
+        $("#saveTimeOffConfirm").click(function () {
+            $("#saveTimeOffForm").submit();
+        });
+
+        $("#deleteTimeOffConfirm").click(function () {
+            $("#deleteTimeOffForm").submit();
+        });
+
+        $("#addTimeOff").click(function () {
+            $("#savePopup").modal("show");
+        });
+
+        $(".removeTimeOff").click(function () {
+            var id = $(this).attr("data-id");
+            var fromDate = $(this).attr("data-from-date");
+            var toDate = $(this).attr("data-to-date");
+
+            $("#deleteTimeOffForm").find("#editFrom").html(fromDate);
+            $("#deleteTimeOffForm").find("#editTo").html(toDate);
+            $("#deleteTimeOffForm").find("#timeOffId").val(id);
+
+            $("#confirmDeletePopup").modal("show");
+        });
+    })
+</script>

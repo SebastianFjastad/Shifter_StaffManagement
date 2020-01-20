@@ -1,0 +1,77 @@
+﻿@using Framework
+@functions{
+    public string CurMenuClass(string menus, string controller = null)
+    {
+        var men = menus.Split(',');
+        if (string.IsNullOrEmpty(controller))
+            return (men.Contains(Request.RequestContext.RouteData.Values["action"])) ? "active" : "";
+        return (men.Contains(Request.RequestContext.RouteData.Values["action"]) && Request.RequestContext.RouteData.Values["controller"].ToString() == controller) ? "active" : "";
+    }
+}
+<style>
+    .menuContainer {
+        min-width: 260px;
+    }
+
+    .logOff {
+        float: left;
+        height: 50px;
+        width: 80px;
+        padding-left: 15px;
+        padding-top: 13px;
+        text-decoration: none;
+    }
+
+    .navbarBrand {
+        padding-bottom: 0;
+        padding-top: 0;
+        padding-right: 5px;
+    }
+
+    .menuContainerMargin {
+        margin-bottom: -20px;
+    }
+
+    .backgroundColour {
+        background-color: aliceblue;
+    }
+</style>
+<div class="menuContainer">
+    <div id="menu" class="menuContainerMargin">
+        <div class="navbar navbar-top backgroundColour" role="banner">
+            <div class="row-fluid">
+                <div class="navbar-header backgroundColour">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand navbarBrand" href="#">
+                        <img src="~/Content/images/MyShifter180x50.png" width="180" height="50" />
+                    </a>
+                </div>
+                <nav class="navbar-collapse collapse" id="navbar-collapse-1" role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li class="@CurMenuClass("Index", "ShiftSchedule")"><a href="@Url.Action("Index", "ShiftSchedule")">Schedule</a></li>
+                        <li class="@CurMenuClass("Index", "Wall")"><a href="@Url.Action("Index", "Wall")">News Feed</a></li>
+                        <li class="@CurMenuClass("Index", "Notifications")"><a href="@Url.Action("Index", "Notifications")">Notifications <span id="messages" class="badge" style="background-color:rgb(200,0,0); display: none;"></span></a></li>
+                        <li class="@CurMenuClass("Index", "Feedback")"><a href="@Url.Action("Index", "Feedback")">Feedback</a></li>
+                        <li class="@CurMenuClass("PersonalDetails", "Account")"><a href="@Url.Action("PersonalDetails", "Account")">Edit details</a></li>
+                        <li class="@CurMenuClass("Index", "ManageTimeOff")"><a href="@Url.Action("Index", "ManageTimeOff")">Leave planner</a></li>
+                        <li style="margin-right: 15px;">
+                            @if (Request.IsAuthenticated)
+                            {
+                                <form id="logoutForm" method="POST" action="@SharedConfig.LogoutUrl">
+                                    @Html.AntiForgeryToken()
+                                    <a class="logOff" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                </form>
+                            }
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>

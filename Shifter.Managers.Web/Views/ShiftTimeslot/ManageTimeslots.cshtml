@@ -1,0 +1,97 @@
+﻿@using Framework
+@model IEnumerable<Shifter.Service.Api.Dtos.StaffTypeDto>
+
+    <div class="row post">
+
+        @foreach (var staffType in Model)
+        {
+            var staffTimeSlots = "staff_" + staffType.Id;
+
+            <div class="staffTypeContainer">
+                <div class="timeslotTitleContainer">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="showHideStaffTypeTimeslots" style="cursor:pointer">
+                                <span class="glyphicon glyphicon-plus-sign expandCollapseIcon" style="font-size: 30px; float: left;"></span>
+                            </div>
+                            <div class="timeslotTitle">
+                                <div class="h3">
+                                    @staffType.Name timeslots
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="@staffType.Name">
+                    <div class="timeslotsContainer clearfix" style="display: none; padding-top:15px;">
+                        <div id="timeslots" class="col-sm-6 @staffTimeSlots">
+                            @{ Html.RenderAction("LoadTimeslots", "ShiftTimeslot", new { staffTypeId = staffType.Id }); }
+                        </div>
+                        <div class="col-sm-6 timeslotArea">
+                            @{ Html.RenderPartial("ShiftTimeslot", staffType); }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Timeslot</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to delete the timeslot <span id="deleteTimeslotTimes"></span>?
+                        It will no longer be available in the shift template.
+                        It will not affect current shifts.
+                    </p>
+                    <form id="deleteTimeslotForm">
+                        <input type="hidden" name="Id" id="timeslotId" />
+                        <input type="hidden" name="RestaurantId" id="timeslotRestaurantId" />
+                        <input type="hidden" name="StaffTypeId" id="staffTypeId" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="deleteTimeslot" class="btn btn-primary">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            var manageTimeslots = new ManageTimeslots();
+            manageTimeslots.Load();
+
+            $('.staffTypeContainer').on('click', '.newTimeslotButton', function () {
+                $(this).closest('.staffTypeContainer').find('.addTimeslotContainer').show();
+            });
+
+            $(".showHideStaffTypeTimeslots").click(function () {
+                var container = $(this).closest(".staffTypeContainer");
+                var expanCollapseButton = $(this).find(".expandCollapseIcon");
+
+                if (expanCollapseButton.hasClass("glyphicon-plus-sign")) {
+                    container.find(".timeslotsContainer").slideDown("fast");
+                    expanCollapseButton.removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
+
+                } else {
+                    container.find(".timeslotsContainer").slideUp("fast");
+                    expanCollapseButton.removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
+                };
+            });
+
+            $(".showHideStaffTypeTimeslots").first().click();
+
+            $('.currentTimeslotsHelp .newTimeslotButton').first().click();
+
+            $("#helpIcon").attr("joyride", "timeslotHelp");
+        });
+
+    </script>
+

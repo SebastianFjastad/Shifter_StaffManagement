@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F75F702-C360-4EF8-8743-48FAF6EC818E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shifter.Service</RootNamespace>
+    <AssemblyName>Shifter.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Shared\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\LoadManagerResponseExtensions.cs" />
+    <Compile Include="Extensions\LoadRestaurantResponseExtensions.cs" />
+    <Compile Include="Extensions\LoadSettingsResponseExtensions.cs" />
+    <Compile Include="Extensions\ShiftExtensions.cs" />
+    <Compile Include="Extensions\LoadShiftTemplateResponseExtensions.cs" />
+    <Compile Include="Extensions\LoadShiftTimeslotCollectionResponseExtensions.cs" />
+    <Compile Include="Extensions\LoadShiftTimeslotResponseExtensions.cs" />
+    <Compile Include="Extensions\StaffExtensions.cs" />
+    <Compile Include="Extensions\StaffResponseExtensions.cs" />
+    <Compile Include="Extensions\UpdateUnavailabilityRequestExtensions.cs" />
+    <Compile Include="Extensions\WallPostExtensions.cs" />
+    <Compile Include="Services\GroupAdminService.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\ManagerService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RestaurantService.cs" />
+    <Compile Include="Services\CommsService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\ShifterServiceBase.cs" />
+    <Compile Include="Services\ShiftService.cs" />
+    <Compile Include="Services\ShiftTemplateService.cs" />
+    <Compile Include="Services\ShiftTimeSlotService.cs" />
+    <Compile Include="Services\StaffService.cs" />
+    <Compile Include="Services\WallService.cs" />
+    <Compile Include="Utilities\MappingUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{82D29879-9AB7-441B-84F7-BC462AA039B2}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shifter.Domain\Shifter.Domain.csproj">
+      <Project>{FB3A6600-D213-440F-AC82-A7F8A46A042B}</Project>
+      <Name>Shifter.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shifter.Service.Api\Shifter.Service.Api.csproj">
+      <Project>{F5EB2D32-EFB8-4440-9943-FAECF120DFD4}</Project>
+      <Name>Shifter.Service.Api</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

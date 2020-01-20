@@ -1,0 +1,319 @@
+﻿@using System.Web.UI.HtmlControls
+@using System.Web.UI.WebControls
+@model Shifter.Web.ViewModels.Account.LoginViewModel
+
+@{
+    ViewBag.Title = "Log On";
+}
+<style>
+    .controlMaxWidthOverride {
+        width: auto;
+    }
+
+    .introText {
+        font-size: 18px;
+        color: rgb(63, 62, 62);
+    }
+
+    .icon {
+        font-size: 40px;
+    }
+
+    .iconInfoRow {
+        margin-top: 30px;
+    }
+
+    .type {
+        padding-left: 10px;
+    }
+
+    .orange {
+        color: rgb(254, 105, 0);
+    }
+
+    .logInForm {
+        background-color: rgb(236, 236, 236);
+        margin-top: 25px;
+        padding: 20px;
+        padding-bottom: 15px;
+    }
+
+    .mainInfo {
+        margin-top: 20px;
+    }
+
+    .titleColour {
+        color: rgb(63, 62, 62);
+    }
+
+    .infoBlock {
+        margin-top: 50px;
+    }
+
+    .typeIcons {
+        color: rgb(0, 151, 0);
+        font-size: 20px;
+        margin-right: 9px;
+    }
+
+    .managerStaffIntroText {
+        margin-top: 10px;
+    }
+
+    .managerStaffIcons {
+        font-size: 24px;
+        margin-right: 3px;
+        padding-left: 5px;
+    }
+
+    .subHeader {
+        padding-left: 40px;
+    }
+
+    .callToActionButton {
+        margin-top: 15px;
+        cursor: pointer;
+        height: 45px;
+        width: 49%;
+        border-radius: 3px;
+        background-color: rgb(255, 126, 36);
+        background: -webkit-linear-gradient(rgb(255, 126, 36), rgb(199, 84, 2));
+        background: -moz-linear-gradient(rgb(255, 126, 36), rgb(199, 84, 2));
+        background: -ms-linear-gradient(rgb(255, 126, 36), rgb(199, 84, 2));
+        background: -o-linear-gradient(rgb(255, 126, 36), rgb(199, 84, 2));
+        background: linear-gradient(rgb(255, 126, 36), rgb(199, 84, 2));
+        box-shadow: inset 0px 1px 0px rgb(255, 126, 36), inset 0 -1px 2px rgb(199, 84, 2);
+        text-shadow: 1px 1px #011b52;
+        color: #fff;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #333333;
+        font-size: 22px;
+        line-height: 18px;
+        font-weight: bold;
+        font-family: arial;
+        text-align: center;
+        background-repeat: no-repeat;
+    }
+
+    .buttonText {
+        margin-top: 13px;
+    }
+
+    .contactContainer {
+        margin-top: 20px;
+        padding-top: 15px;
+        background-color: aliceblue;
+        padding-bottom: 15px;
+    }
+
+    .contactHeading {
+        font-size: 25px;
+    }
+</style>
+
+<div class="row">
+
+    @*Left Icon Info*@
+    <div class="col-sm-8 mainInfo">
+        <p class="introText">Create, copy and view shift schedules from any device or computer.</p>
+
+        <div class="row iconInfoRow">
+            <div class="col-xs-2"><span class="glyphicon glyphicon-time icon"></span></div>
+            <div class="col-xs-10">
+                <div class="h3 orange">Save Time</div>
+                <div>Less time spent writing/typing out schedules and facilitating staff requests to swap shifts.</div>
+            </div>
+        </div>
+
+        <div class="row iconInfoRow">
+            <div class="col-xs-2"><span class="glyphicon glyphicon-calendar icon"></span></div>
+            <div class="col-xs-10">
+                <div class="h3 orange">Neat schedules</div>
+                <div>A simple and neat layout that can be kept up to date from a tablet, phone or computer.</div>
+            </div>
+        </div>
+
+        <div class="row iconInfoRow">
+            <div class="col-xs-2"><span class="glyphicon glyphicon-phone icon"></span></div>
+            <div class="col-xs-10">
+                <div class="h3 orange">Organized staff</div>
+                <div>Staff can easily swap shifts assigned to them and view their schedules.</div>
+            </div>
+        </div>
+    </div>
+
+    @*Right Log In*@
+    <div class="col-sm-4 ">
+        <div class="logInForm row">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <a class="close" data-dismiss="alert">×</a>
+                            @Html.ValidationSummary()
+                        </div>
+                    }
+                    <div class="col-xs-12 form-group">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username" })
+                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-xs-12 form-group">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-4">
+                            <input type="submit" value="Log on" class="btn btn-primary" />
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe, "Remember me")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            @Html.ActionLink("Forgot password?", "FindMeForm", "Account")
+                        </div>
+                    </div>
+                }
+            </section>
+        </div>
+
+        <div class="row">
+            <div id="contactUs" style="float: left;" class="center-block callToActionButton">
+                <div class="buttonText">Contact us</div>
+            </div>
+            <a href="@Url.Action("Registration", "Account")">
+                <div id="register" style="float: right;" class="center-block callToActionButton">
+                    <div class="buttonText">Register</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <iframe width="560" height="315" style="margin-left: 20px; margin-top: 30px;" src="https://www.youtube.com/embed/OKaiE12me60" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="contactPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Contact us</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div id="errors" class="alert alert-danger alert-dismissable" style="display: none">
+
+                    </div>
+                    <div id="successMessage" class="alert alert-success alert-dismissable" style="display: none">
+                        Thank you, your request has been sent. We will contact you shortly.
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <form id="contactForm" role="form" class="form-horizontal">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <p>Let us know you're interested. Enter your details below and we will get back to you.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input name="FullName" class="required form-control" placeholder="Name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input name="Email" class="required form-control" placeholder="Email" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input name="ContactNumber" class="form-control" placeholder="Contact number" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input name="SkypeName" class="form-control" placeholder="Skype contact name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control" name="Message" rows="4" placeholder="Questions or queries"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="submitContactForm" class="btn btn-success">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#contactUs").click(function () {
+                $("#contactPopup").modal("show");
+            });
+
+            $("#submitContactForm").click(function () {
+                var params = $("#contactForm").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ContactMe", "Account")',
+                    data: params,
+                    success: function (result) {
+                        contactMeComplete(result);
+                    },
+                    error: function () {
+                        alert("Oops... something went wrong, we were not able to submit the form.");
+                    }
+                });
+            });
+
+            function contactMeComplete(result) {
+                if (result.HasErrors) {
+                    $("#errors").html(result.Message);
+                    $("#errors").show();
+                }
+                else if (result.HasErrors == false) {
+                    $("#successMessage").show();
+
+                    setTimeout(function () { $("#contactPopup").modal("hide"); }, 4000);
+                }
+            };
+
+            $("#showLogOn > button").click(function () {
+                var offset = $(".logInForm").offset().top;
+                $('html,body').animate({ scrollTop: offset }, 200, function () {
+                    $("#Username").focus();
+                });
+
+                return false;
+            });
+        });
+    </script>
+}

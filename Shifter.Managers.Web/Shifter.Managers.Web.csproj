@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3CE84E15-8BF8-44B2-8EB5-21C98756319D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shifter.Managers.Web</RootNamespace>
+    <AssemblyName>Shifter.Managers.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\Shared\lib\Spring.NET 1.3.2\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\Shared\lib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebHelpers.3.2.2\lib\net45\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.30506.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\Shared\lib\Spring.NET 1.3.2\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Services">
+      <HintPath>..\Shared\lib\Spring.NET 1.3.2\Spring.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unity.Mvc3">
+      <HintPath>..\Shared\lib\Unity.Mvc3.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.0.3.12153\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.2\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.2\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\Restaurant\LoadRestaurantsAction.cs" />
+    <Compile Include="Actions\Settings\CheckForMessagesAction.cs" />
+    <Compile Include="Actions\Settings\LoadWaiterHoursAction.cs" />
+    <Compile Include="Actions\Settings\SaveSettingsAction.cs" />
+    <Compile Include="Actions\Settings\LoadSettingsAction.cs" />
+    <Compile Include="Actions\ShiftSchedule\LoadWaitersShiftsForDateAction.cs" />
+    <Compile Include="Actions\ShiftSchedule\DeleteShiftAction.cs" />
+    <Compile Include="Actions\ShiftSchedule\CopyScheduleAction.cs" />
+    <Compile Include="Actions\ShiftSchedule\SaveShiftsAction.cs" />
+    <Compile Include="Actions\ShiftSchedule\SaveShiftAction.cs" />
+    <Compile Include="Actions\ShiftSchedule\LoadShiftScheduleAction.cs" />
+    <Compile Include="Actions\ShiftTemplate\LoadShiftTemplateAction.cs" />
+    <Compile Include="Actions\ShiftTemplate\SaveShiftTemplateAction.cs" />
+    <Compile Include="Actions\ShiftTimeslots\DeleteTimeslotsAction.cs" />
+    <Compile Include="Actions\ShiftTimeslots\LoadTimeslotsAction.cs" />
+    <Compile Include="Actions\ShiftTimeslots\SaveTimeslotsAction.cs" />
+    <Compile Include="Actions\Waiter\DeleteTimeOffAction.cs" />
+    <Compile Include="Actions\Waiter\DeleteWaiterAction.cs" />
+    <Compile Include="Actions\Waiter\LoadStaffListAction.cs" />
+    <Compile Include="Actions\Waiter\LoadStaffMemberAction.cs" />
+    <Compile Include="Actions\Waiter\ResetPasswordAction.cs" />
+    <Compile Include="Actions\Waiter\SaveTimeOffAction.cs" />
+    <Compile Include="Actions\Waiter\SaveWaiterAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Actions\Wall\LoadWallPostLookupsAction.cs" />
+    <Compile Include="Actions\Wall\LoadWallPostsAction.cs" />
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BootstrapBundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\ExampleLayoutsRouteConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityIoc.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Attributes\AuthorizeUserData.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\WallController.cs" />
+    <Compile Include="IServiceRegistry.cs" />
+    <Compile Include="Hubs\MessageHub.cs" />
+    <Compile Include="Hubs\MessageProcessor.cs" />
+    <Compile Include="Hubs\Startup.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="ServiceRegistry.cs" />
+    <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Controllers\ShiftTimeslotController.cs" />
+    <Compile Include="Controllers\ShiftScheduleController.cs" />
+    <Compile Include="Controllers\ShiftTemplateController.cs" />
+    <Compile Include="Controllers\ShifterBaseController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\WaiterController.cs" />
+    <Compile Include="Extensions\UrlExtensions.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="Utils\UrlRouteConfig.cs" />
+    <Compile Include="Utils\ViewHelper.cs" />
+    <Compile Include="ViewModels\Feedback\FeedbackViewModel.cs" />
+    <Compile Include="ViewModels\Restaurants\RestaurantsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\WaiterHoursViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ShiftSchedule\ShiftScheduleResultsViewModel.cs" />
+    <Compile Include="ViewModels\ShiftSchedule\ShiftsResultViewModel.cs" />
+    <Compile Include="ViewModels\ShiftSchedule\ShiftSummaryViewModel.cs" />
+    <Compile Include="ViewModels\ShiftSchedule\ShiftScheduleViewModel.cs" />
+    <Compile Include="ViewModels\ShiftTemplate\ShiftTemplateViewModel.cs" />
+    <Compile Include="ViewModels\ShiftTimeslot\ShiftScheduleViewModel.cs" />
+    <Compile Include="ViewModels\Shift\ShiftEditorViewModel.cs" />
+    <Compile Include="ViewModels\Waiters\StaffListViewModel.cs" />
+    <Compile Include="ViewModels\Waiters\StaffMemberViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\Wall\WallPostEditorViewModel.cs" />
+    <Compile Include="ViewModels\Wall\WallPostsViewModel.cs" />
+    <Compile Include="ViewModels\Wall\WallViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="apple-touch-icon-114x114.png" />
+    <Content Include="apple-touch-icon-120x120.png" />
+    <Content Include="apple-touch-icon-144x144.png" />
+    <Content Include="apple-touch-icon-152x152.png" />
+    <Content Include="apple-touch-icon-57x57.png" />
+    <Content Include="apple-touch-icon-60x60.png" />
+    <Content Include="apple-touch-icon-72x72.png" />
+    <Content Include="apple-touch-icon-76x76.png" />
+    <Content Include="apple-touch-icon-precomposed.png" />
+    <Content Include="apple-touch-icon.png" />
+    <Content Include="browserconfig.xml" />
+    <Content Include="Configs\Spring.Context.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\bootstrap\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap\body.css" />
+    <Content Include="Content\bootstrap\bootstrap-multiselect.css" />
+    <Content Include="Content\bootstrap\bootstrap-mvc-validation.css" />
+    <Content Include="Content\bootstrap\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap\bootstrap-timepicker.css" />
+    <Content Include="Content\CustomCss\ShiftSchedule\print.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\loaderSmall.gif" />
+    <Content Include="Content\images\minus.cur" />
+    <Content Include="Content\images\minus.png" />
+    <Content Include="Content\images\pencil.png" />
+    <Content Include="Content\images\plus.cur" />
+    <Content Include="Content\images\plus.png" />
+    <Content Include="Content\Other\Custom.css" />
+    <Content Include="Content\images\MyShifter180x50.png" />
+    <Content Include="Content\FontAwsome\font-awesome.css" />
+    <Content Include="Content\Other\joyride-2.1.css" />
+    <Content Include="Content\CustomCss\ShiftSchedule\ShiftSchedule.css" />
+    <Content Include="favicon-160x160.png" />
+    <Content Include="favicon-16x16.png" />
+    <Content Include="favicon-196x196.png" />
+    <Content Include="favicon-32x32.png" />
+    <Content Include="favicon-96x96.png" />
+    <Content Include="mstile-144x144.png" />
+    <Content Include="mstile-150x150.png" />
+    <Content Include="mstile-310x150.png" />
+    <Content Include="mstile-310x310.png" />
+    <Content Include="mstile-70x70.png" />
+    <Content Include="Scripts\App\Account\ResetPassword.js" />
+    <Content Include="Scripts\App\Settings\Settings.js" />
+    <Content Include="Scripts\App\Wall\ManageWall.js" />
+    <Content Include="Scripts\Lib\bootstrap-datepicker.js" />
+    <Content Include="Scripts\Lib\amplify.js" />
+    <Content Include="Scripts\Lib\bootstrap-multiselect.js" />
+    <Content Include="Scripts\Lib\jquery.joyride-2.1.js" />
+    <Content Include="Scripts\Lib\jquery.signalR-2.0.0.js" />
+    <Content Include="Scripts\Lib\jquery.signalR-2.0.0.min.js" />
+    <Content Include="Scripts\Lib\bootstrap-timepicker.js" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\Less\Shifter.css">
+      <DependentUpon>Shifter.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Less\Shifter.min.css">
+      <DependentUpon>Shifter.less</DependentUpon>
+    </Content>
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.timepicker.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\App\ShifterUX.js" />
+    <Content Include="Scripts\App\DataService.js" />
+    <Content Include="Scripts\App\ShiftSchedule\ShiftSchedule.js" />
+    <Content Include="Scripts\App\Timeslot\ManageTimeslots.js" />
+    <Content Include="Scripts\App\Waiter\Waiter.js" />
+    <Content Include="Scripts\App\Waiter\ManageWaiters.js" />
+    <Content Include="Content\Less\Shifter.less" />
+    <Content Include="Content\Less\Shifter.css.map">
+      <DependentUpon>Shifter.css</DependentUpon>
+    </Content>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Properties\PublishProfiles\jh.pubxml" />
+    <None Include="Scripts\Lib\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\Lib\bootstrap.js" />
+    <Content Include="Scripts\Lib\bootstrap.min.js" />
+    <Content Include="Scripts\Lib\confirm-bootstrap.js" />
+    <Content Include="Scripts\Lib\html5shiv.js" />
+    <Content Include="Scripts\Lib\jquery-1.11.0.js" />
+    <Content Include="Scripts\Lib\jquery-1.11.0.min.js" />
+    <Content Include="Scripts\Lib\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\Lib\jquery-migrate-1.2.1.js" />
+    <Content Include="Scripts\Lib\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.10.3.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.10.3.min.js" />
+    <Content Include="Scripts\Lib\jquery.ui.timepicker.js" />
+    <Content Include="Scripts\Lib\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\Lib\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\Lib\jquery.validate.js" />
+    <Content Include="Scripts\Lib\jquery.validate.min.js" />
+    <Content Include="Scripts\Lib\jquery.validate.unobtrusive-custom-for-bootstrap.js" />
+    <Content Include="Scripts\Lib\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\Lib\knockout-2.1.0.js" />
+    <Content Include="Scripts\Lib\modernizr-2.5.3.js" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Lib\tinymce\license.txt" />
+    <Content Include="Scripts\Lib\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\anchor\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\autoresize\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\autosave\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\bbcode\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\charmap\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\code\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\colorpicker\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\contextmenu\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\directionality\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-cool.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-cry.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-embarassed.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-foot-in-mouth.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-frown.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-innocent.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-kiss.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-laughing.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-money-mouth.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-sealed.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-smile.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-surprised.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-tongue-out.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-undecided.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-wink.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\img\smiley-yell.gif" />
+    <Content Include="Scripts\Lib\tinymce\plugins\emoticons\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\example\dialog.html" />
+    <Content Include="Scripts\Lib\tinymce\plugins\example\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\example_dependency\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\fullpage\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\fullscreen\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\importcss\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\layer\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\lists\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\media\moxieplayer.swf" />
+    <Content Include="Scripts\Lib\tinymce\plugins\media\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\noneditable\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\pagebreak\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\print\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\save\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\searchreplace\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\spellchecker\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\tabfocus\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\table\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\template\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\textpattern\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="Scripts\Lib\tinymce\plugins\visualblocks\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\visualchars\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\plugins\wordcount\plugin.min.js" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\content.inline.min.css" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce-small.dev.svg" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.dev.svg" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\img\anchor.gif" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\img\loader.gif" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\img\object.gif" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\img\trans.gif" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\skin.ie7.min.css" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\skin.min.css" />
+    <Content Include="Scripts\Lib\tinymce\themes\modern\theme.min.js" />
+    <Content Include="Scripts\Lib\tinymce\tinymce.min.js" />
+    <Content Include="Views\Shared\GeneralError.cshtml" />
+    <Content Include="Views\Shared\PageNotFound.cshtml" />
+    <Content Include="Views\Waiter\EditStaffMember.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="BootstrapSupport\" />
+    <Folder Include="NavigationRoutes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{82D29879-9AB7-441B-84F7-BC462AA039B2}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shifter.Service.Api\Shifter.Service.Api.csproj">
+      <Project>{F5EB2D32-EFB8-4440-9943-FAECF120DFD4}</Project>
+      <Name>Shifter.Service.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shifter.Shared.WebClient\Shifter.Shared.WebClient.csproj">
+      <Project>{CF826AC3-DBAE-4282-9EEA-A8ACB5520976}</Project>
+      <Name>Shifter.Shared.WebClient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Restaurant\SelectRestaurant.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShiftTemplate\ShiftTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShiftSchedule\ShiftSchedule.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShiftSchedule\ShiftScheduleResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShiftSchedule\EditShift.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Waiter\ManageWaiters.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\AppRoutes.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShiftTimeslot\ShiftTimeslots.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShiftTimeslot\ShiftTimeslot.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShiftTimeslot\ManageTimeslots.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Lib\jquery-1.9.1.min.map" />
+    <Content Include="Views\Shared\_alerts.cshtml" />
+    <Content Include="Views\Shared\_html5shiv.cshtml" />
+    <Content Include="Views\Shared\_BootstrapLayout.basic.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\ShiftSchedule\ShiftSummary.cshtml" />
+    <Content Include="Views\Dashboard\WaiterHours.cshtml" />
+    <Content Include="Views\ShiftSchedule\EditPastShift.cshtml" />
+    <Content Include="Views\Shared\Favicons.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Shared\Timeout.cshtml" />
+    <Content Include="Views\Feedback\FeedbackForm.cshtml" />
+    <Content Include="Views\Shared\ShifterHelp.cshtml" />
+    <Content Include="Views\ShiftSchedule\ShiftsResult.cshtml" />
+    <Content Include="Views\Shared\Errors.cshtml" />
+    <Content Include="Views\Wall\ManageWall.cshtml" />
+    <Content Include="Views\Wall\WallPost.cshtml" />
+    <Content Include="Scripts\Lib\tinymce\langs\readme.md" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\readme.md" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Scripts\Lib\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Views\Wall\ReadOnlyWallPost.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_validationSummary.cshtml" />
+    <Content Include="Views\Wall\WallPosts.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>22616</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Log In";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@using Microsoft.Web.Mvc.Html
+@model Shifter.Waiters.Web.ViewModels.LoginViewModel
+
+<style>
+    .marginTop {
+        margin-top: 65px
+    }
+    .logOnButton {
+        width: 100px!important;
+        margin-bottom: 10px;
+        float: left;
+    }
+    .checkboxWidth {
+        min-width: 142px;
+    }
+</style>
+
+<div class="marginTop">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <form role="form">
+            <div class="row-fluid">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        <a class="close" data-dismiss="alert">×</a>
+                        @Html.ValidationSummary()
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Username, new { @class = "col-xs-2 control-label" })
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.Username, new { Class = "form-control" })
+                </div>
+                <div class="col-xs-12 col-sm-offset-2">
+                    @Html.ValidationMessageFor(m => m.Username)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-xs-2 control-label" })
+                <div class="col-sm-6">
+                    @Html.PasswordFor(m => m.Password, new { Class = "form-control" })
+                </div>
+                <div class="col-xs-12 col-sm-offset-2">
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-sm-offset-2 logOnButton">
+                    <input type="submit" class="btn btn-primary" value="Log On" />
+                </div>
+                @*<div class="col-sm-offset-1 col-xs-7">
+                    <div class="checkbox checkboxWidth">
+                        <label>
+                            @Html.CheckBoxFor(m => m.RememberMe)Remember me
+                        </label>
+                    </div>
+                </div>*@
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-xs-10">
+                    @Html.ActionLink("Forgot password?", "ResetPasswordConfirm", "Account")
+                </div>
+            </div>
+        </form>
+    }
+</div>

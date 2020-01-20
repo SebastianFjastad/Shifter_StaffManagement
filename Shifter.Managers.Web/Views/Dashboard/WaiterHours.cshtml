@@ -1,0 +1,23 @@
+﻿@model Shifter.Managers.Web.ViewModels.WaiterHoursViewModel
+
+<table class="table table-striped table-condensed">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Shifts</th>
+        <th>Hours</th>
+        <th>Pay</th>
+    </tr>
+    
+    @foreach (var waiterHours in Model.WaiterHours)
+    {
+        <tr>
+            <td>@waiterHours.FirstName</td>
+            <td>@waiterHours.LastName</td>
+            <td>@waiterHours.NoOfShifts</td>
+            <td>@waiterHours.HoursWorked.TotalHours</td>
+            <td>@(waiterHours.HoursWorked.TotalHours * Model.HourlyRate)</td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,260 @@
+﻿.btn-custom {
+    background-color: hsl(0, 0%, 57%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fcfcfc", endColorstr="#919191");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#fcfcfc), to(#919191));
+    background-image: -moz-linear-gradient(top, #fcfcfc, #919191);
+    background-image: -ms-linear-gradient(top, #fcfcfc, #919191);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fcfcfc), color-stop(100%, #919191));
+    background-image: -webkit-linear-gradient(top, #fcfcfc, #919191);
+    background-image: -o-linear-gradient(top, #fcfcfc, #919191);
+    background-image: linear-gradient(#fcfcfc, #919191);
+    border-color: #919191 #919191 hsl(0, 0%, 46.5%);
+    color: #333 !important;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.69);
+    -webkit-font-smoothing: antialiased;
+}
+
+/*schedule Index*/
+.weekTitleContainer {
+    min-height: 40px;
+    margin-top: 10px;
+    padding: 8px;
+    border: solid;
+    cursor: pointer;
+    border-width: 1px;
+    border-color: #357ebd;
+    background-color: aliceblue;
+    color: rgb(117, 115, 115);
+}
+
+.plusMinusIconColor {
+    color: #357ebd;
+}
+
+    .plusMinusIconColor:hover {
+        opacity: 0.7;
+    }
+
+
+/*schedule Available shifts*/
+.noShift {
+    background-color: #F7F7F7;
+    margin-bottom: 0;
+}
+
+.disabledColor {
+    color: #c2c2c2 !important;
+}
+
+.shiftWaiter {
+    width: 90px !important;
+    text-align: center;
+    border: 3px;
+    border-color: white;
+    margin: 2px;
+    border-style: solid;
+    background-color: #f0eded;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    cursor: pointer;
+}
+
+    .shiftWaiter:hover {
+        background-color: #e4e4e4;
+    }
+
+.shiftTime {
+    font-size: 13px !important;
+    margin-bottom: 0 !important;
+    font-weight: bold;
+}
+
+.shiftTimeHeading {
+    font-size: 16px !important;
+    color: rgb(117, 115, 115);
+    text-align: center;
+}
+
+.backgroundContainer {
+    /*background-color: aliceblue;*/
+    border: 1px;
+    border-top: 0;
+    border-style: solid;
+    border-color: #357ebd;
+}
+
+.day-row {
+    min-height: 50px;
+}
+
+.waiterName {
+    width: 90px !important;
+}
+
+.shifColumnHeader {
+    width: 90px !important;
+    color: white;
+    font-weight: bolder;
+    text-align: center;
+    border: 3px;
+    border-color: white;
+    margin: 2px;
+    border-style: solid;
+    background-color: #73a0c6;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.blank {
+    background-color: #f0eded;
+}
+
+/*schedule Allshifts*/
+.menuBar {
+    margin-top: 10px;
+    background-color: aliceblue;
+    border: 2px;
+    border-style: solid;
+    border-color: #357ebd;
+}
+
+.menuBarDate {
+    font-size: 22px;
+    width: 100px;
+    padding-left: 10px;
+    float: left;
+    margin-top: 5px;
+}
+
+.backButton {
+    font-size: 24px;
+    float: left;
+}
+
+.waiterNameAll {
+    font-size: 18px !important;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.backgroundContainerAll {
+    background-color: aliceblue;
+    padding-bottom: 5px;
+}
+
+.waiter-row {
+    min-height: 45px;
+}
+
+/*schedule ShiftsToTake*/
+.singleShiftDateHeading {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.bold {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.selectShift {
+    margin-top: 10px;
+}
+
+
+/*personal details*/
+.rowForSubmitButton {
+    margin-top: 10px !important;
+}
+
+    .rowForSubmitButton.submitButton {
+        min-width: 70px;
+    }
+
+
+/*wall*/
+.post {
+    margin: 15px 15px 0 15px;
+}
+
+.postBodyContainer {
+    margin-top: 5px;
+    display: none;
+}
+
+.commentorName {
+    font-weight: bold;
+}
+
+.commentDate {
+    font-size: 9pt;
+    margin-top: 5px;
+    color: grey;
+}
+
+.postDate {
+    font-size: 9pt;
+}
+
+.commentInput {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.postTitleContainer {
+    min-height: 50px;
+    margin-top: 15px;
+    padding: 7px;
+    border: solid;
+    border-width: 1px;
+    border-color: #357ebd;
+    background-color: aliceblue;
+    color: rgb(117, 115, 115);
+}
+
+.postTitle {
+    margin-left: 45px;
+    cursor: pointer;
+}
+
+.showComments {
+    width: 130px;
+    height: 30px;
+    margin-top: 10px;
+    padding: 5px;
+    padding-left: 8px;
+    background-color: #357ebd;
+    color: white;
+    cursor: pointer;
+    float: left;
+}
+
+.glyphicon-chevron-down {
+    margin-left: 5px;
+}
+
+.glyphicon-chevron-up {
+    margin-left: 5px;
+}
+
+.commentsContainer {
+    padding-left: 10px;
+    display: none;
+}
+
+.writeComment {
+    margin-top: 10px;
+    padding: 5px;
+    color: #357ebd;
+    width: 130px;
+    height: 30px;
+    font-weight: bolder;
+    float: left;
+}
+
+    .writeComment :hover {
+        background-color: #357ebd;
+        color: white;
+    }

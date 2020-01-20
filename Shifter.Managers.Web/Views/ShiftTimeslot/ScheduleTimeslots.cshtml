@@ -1,0 +1,12 @@
+﻿@using Framework
+@model Shifter.Managers.Web.ViewModels.ShiftTimeslotViewModel
+
+<option value="0">Edit timeslot</option>
+
+@foreach (var timeslot in Model.Timeslots)
+{
+    <option data-start-time="@timeslot.StartTime.ToString(SharedConstants.TimeFormat)" data-end-time="@timeslot.EndTime.ToString(SharedConstants.TimeFormat)">
+        @timeslot.GetFormattedTime(SharedConstants.TimeFormat)
+    </option>
+}
+

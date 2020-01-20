@@ -1,0 +1,17 @@
+﻿@media print
+{    
+    .no-print
+    {
+        display: none !important;
+    }
+
+    .helpIconWrap {
+        display: none !important;
+    }
+
+    .shiftCell {
+        border-bottom-style: solid !important;
+        border-color: black !important;
+        padding-bottom: 20px !important;
+    }
+}

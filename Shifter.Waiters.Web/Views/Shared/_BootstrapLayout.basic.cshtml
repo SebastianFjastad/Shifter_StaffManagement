@@ -1,0 +1,161 @@
+﻿@using System.Web.Optimization
+@using Shifter.Domain
+@using Shifter.Waiters.Web.Utils
+@*@using BootstrapSupport
+    @using NavigationRoutes*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title Shifter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .invalid {
+            background: lightcoral;
+        }
+
+        .ajax-loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -64px; /* -1 * image width / 2 */
+            margin-top: -64px; /* -1 * image height / 2 */
+            display: none;
+        }
+
+        .appContainer {
+            min-width: 293px;
+        }
+    </style>
+
+    @Styles.Render("~/Content/bootstrap/css")
+    @Styles.Render("~/Content/Custom/css")
+
+    <link rel="stylesheet" href="~/Content/Less/Shifter.css" type="text/css">
+
+    @Styles.Render("~/Content/jquery/css")
+
+    @Scripts.Render("~/bundles/libs")
+
+    @{Html.RenderPartial("AppRoutes");}
+
+    <script src="~/signalr/hubs"></script>
+
+    @RenderSection("head", required: false)
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-51104368-1', 'myshifter.co.za');
+        ga('send', 'pageview');
+    </script>
+    @{
+        Html.RenderPartial("Favicons");
+    }
+</head>
+<body>
+    <div class="container appContainer">
+        @Html.Partial("MenuPartial")
+        @Html.Partial("_validationSummary")
+        @RenderBody()
+        <img class="ajax-loader" id="ajaxLoader" src="~/Content/images/loader.gif" height="128" width="128" />
+
+        <div class="row-fluid col-xs-12">
+            <hr>
+            <footer>
+                <p>&copy; Shifter @System.DateTime.Now.ToString("yyyy")</p>
+            </footer>
+        </div>
+        <div class="modal fade" id="genericModal" tabindex="-1" role="dialog" aria-labelledby="Attention" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="genericModalTitle"></h4>
+                    </div>
+                    <div id="genericModalBody" class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dataService;
+        var shifterUx;
+        $(function () {
+            shifterUx = new ShifterUX();
+            dataService = new DataService();
+
+            // Reference the auto-generated proxy for the hub.
+            var broadcaster = $.connection.messageHub;
+
+            // Create a function that the hub can call back to display messages.
+            broadcaster.client.raiseEvent = function (topic, message, returnedClientKey) {
+                if ((topic == "@MessageTopics.ShiftAssigned" || topic == "@MessageTopics.ShiftDeleted") && "@Session[Constants.SessionKeys.ClientKey]" != returnedClientKey) {
+                    checkForMessages(true);
+                }
+            };
+
+            $.connection.hub.start();
+
+            checkForMessages(false);
+
+            updateLastActiveDate();
+
+            amplify.subscribe("CheckForMessages", checkForMessages);
+
+        });
+
+        function checkForMessages(showAlert) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("CheckForMessages", "Notifications")",
+                success: function (result) {
+                    $("#messages").html(result);
+                    if (result > 0) {
+                        $("#messages").show();
+                        if (showAlert) {
+                            $.notify("You have " + result + " notifications", "info", {
+                                clickToHide: true,
+                                autoHide: true,
+                                autoHideDelay: 5000,
+                                arrowShow: false,
+                                globalPosition: 'top right',
+                                style: 'bootstrap',
+                                showAnimation: 'slideDown',
+                                showDuration: 400,
+                                hideAnimation: 'slideUp',
+                                hideDuration: 200,
+                            });
+                        }
+                    } else {
+                        $("#messages").hide();
+                    }
+                    amplify.publish("MessagesUpdated");
+                }
+            });
+        };
+
+        function updateLastActiveDate() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateLastActiveDate", "Account")",
+            });
+        };
+    </script>
+
+    @Scripts.Render("~/bundles/appLibs")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

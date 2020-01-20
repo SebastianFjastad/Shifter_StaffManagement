@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+  <object name="appConfigPropertyHolder" type="Spring.Objects.Factory.Config.PropertyPlaceholderConfigurer, Spring.Core">
+    <property name="configSections">
+      <value>appSettings</value>
+    </property>
+  </object>
+
+  <!-- Services -->
+  <object id="wallService" type="Shifter.Service.Services.WallService, Shifter.Service" singleton="false">
+    <constructor-arg name="wallDomainService" ref="wallDomainService"/>
+    <constructor-arg name="managerDomainService" ref="managerDomainService"/>
+    <constructor-arg name="staffDomainService" ref="staffDomainService"/>
+  </object>
+  
+  <object id="commsService" type="Shifter.Service.Services.CommsService, Shifter.Service" singleton="false">
+    <constructor-arg name="commsDomainService" ref="commsDomainService"/>
+    <constructor-arg name="authenticationDomainService" ref="authenticationDomainService"/>
+  </object>
+
+  <object id="authenticationService" type="Shifter.Service.Services.AuthenticationService, Shifter.Service" singleton="false">
+    <constructor-arg name="authenticationDomainService" ref="authenticationDomainService"/>
+    <constructor-arg name="managerDomainService" ref="managerDomainService"/>
+    <constructor-arg name="restaurantDomainService" ref="restaurantDomainService"/>
+  </object>
+  
+  <object id="managerService" type="Shifter.Service.Services.ManagerService, Shifter.Service" singleton="false">
+    <constructor-arg name="managerDomainService" ref="managerDomainService"/>
+  </object>
+
+  <object id="restaurantService" type="Shifter.Service.Services.RestaurantService, Shifter.Service" singleton="false">
+    <constructor-arg name="restaurantDomainService" ref="restaurantDomainService"/>
+  </object>
+
+  <object id="settingsService" type="Shifter.Service.Services.SettingsService, Shifter.Service" singleton="false">
+    <constructor-arg name="settingsDomainService" ref="settingsDomainService"/>
+    <constructor-arg name="shiftService" ref="shiftService"/>
+  </object>
+
+  <object id="staffService" type="Shifter.Service.Services.StaffService, Shifter.Service" singleton="false">
+    <constructor-arg name="staffDomainService" ref="staffDomainService"/>
+    <constructor-arg name="shiftDomainService" ref="shiftDomainService"/>
+    <constructor-arg name="restaurantDomainService" ref="restaurantDomainService"/>
+  </object>
+
+  <object id="shiftTemplateService" type="Shifter.Service.Services.ShiftTemplateService, Shifter.Service" singleton="false">
+    <constructor-arg name="shiftTemplateDomainService" ref="shiftTemplateDomainService"/>
+  </object>
+  
+    <object id="shiftTimeSlotService" type="Shifter.Service.Services.ShiftTimeSlotService, Shifter.Service" singleton="false">
+    <constructor-arg name="shiftTimeSlotDomainService" ref="shiftTimeSlotDomainService"/>
+  </object>
+
+  <object id="shiftService" type="Shifter.Service.Services.ShiftService, Shifter.Service" singleton="false">
+      <constructor-arg name="shiftDomainService" ref="shiftDomainService"/>
+  </object>
+
+  <!-- Domain Services -->
+  <object id="wallDomainService" type="Shifter.Domain.Services.WallDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+  </object>
+  
+  <object id="commsDomainService" type="Shifter.Domain.Services.CommsDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+  </object>
+
+  <object id="authenticationDomainService" type="Shifter.Domain.Services.AuthenticationDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+    <constructor-arg name="passwordEncryptor" ref="passwordEncryptor"/>
+    <constructor-arg name="passwordGenerator" ref="passwordGenerator"/>
+  </object>
+  
+  <object id="managerDomainService" type="Shifter.Domain.Services.ManagerDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+    <constructor-arg name="passwordEncryptor" ref="passwordEncryptor"/>
+    <constructor-arg name="passwordGenerator" ref="passwordGenerator"/>
+  </object>
+
+  <object id="restaurantDomainService" type="Shifter.Domain.Services.RestaurantDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+  </object>
+
+  <object id="settingsDomainService" type="Shifter.Domain.Services.SettingsDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+  </object>
+
+  <object id="staffDomainService" type="Shifter.Domain.Services.StaffDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+    <constructor-arg name="passwordEncryptor" ref="passwordEncryptor"/>
+    <constructor-arg name="passwordGenerator" ref="passwordGenerator"/>
+  </object>
+
+  <object id="shiftTemplateDomainService" type="Shifter.Domain.Services.ShiftTemplateDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+  </object>
+  
+  <object id="shiftTimeSlotDomainService" type="Shifter.Domain.Services.ShiftTimeSlotDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+  </object>
+
+  <object id="shiftDomainService" type="Shifter.Domain.Services.ShiftDomainService, Shifter.Domain">
+    <constructor-arg name="repository" ref="repository"/>
+    <constructor-arg name="publisher" ref="publisher"/>
+  </object>
+
+  <!-- Repository -->
+  <object id="repository" type="Shifter.Persistence.Data.Repository, Shifter.Persistence">
+    <constructor-arg name="databaseFactory" ref="databaseFactory"/>
+  </object>
+
+  <object id="databaseFactory" type="Shifter.Persistence.Data.DatabaseFactory, Shifter.Persistence">
+    <constructor-arg value="Shifter.Domain"/>
+  </object>
+
+  <object id="passwordEncryptor" type="Framework.Encryption.PasswordEncryptor, Framework">
+    <constructor-arg name="cryptoService" ref="cryptoService"/>
+  </object>
+
+  <object id="passwordGenerator" type="Framework.Encryption.PasswordGenerator, Framework"/>
+  
+  <object id="cryptoService" type="Framework.Encryption.PBKDF2, Framework"/>
+
+  <object id="publisher" type="Framework.PubSub.Msmq.Publisher, Framework">
+    <constructor-arg name="destination" value="${MessageQueueName}"/>
+  </object>
+</objects>

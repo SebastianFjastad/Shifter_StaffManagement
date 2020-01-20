@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>@ViewBag.Title Shifter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .invalid {
+                background: lightcoral;
+            }
+            .menuBackground {
+                background-color:aliceblue;
+                height:50px;
+            }
+        </style>
+
+        @Styles.Render("~/Content/css")
+
+        @Scripts.Render("~/bundles/libs")
+
+        @RenderSection("head", required: false)
+        @Html.Partial("_html5shiv")
+    
+        @{Html.RenderPartial("AppRoutes");}
+
+        @{
+            Html.RenderPartial("Favicons");
+        }
+    </head>
+
+<body>
+    <div class="container">
+        <div class="col-xs-12 menuBackground">
+            <div class=""><img src="~/Content/images/Shifter130x50.png" width="130" height="50" /></div>
+        </div>
+        @RenderBody()
+        <div class="row col-xs-12">
+            <hr>
+            <footer>
+                <p>&copy; Shifter @System.DateTime.Now.ToString("yyyy")</p>
+            </footer>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dataService;
+        $(function () {
+            dataService = new DataService();
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

@@ -1,0 +1,12 @@
+﻿@model Framework.Notifications.NotificationCollection
+<style>
+    .paddingTop {
+        padding-top: 20px !important    
+    }
+</style>
+<div class="row-fluid">
+    @foreach (var error in Model)
+    {
+        <div>@error.Text</div>
+    }
+</div>

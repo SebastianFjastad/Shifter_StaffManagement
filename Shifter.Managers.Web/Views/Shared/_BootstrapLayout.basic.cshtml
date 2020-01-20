@@ -1,0 +1,158 @@
+﻿@using Framework
+@functions{
+    public string CurMenuClass(string menus, string controller = null)
+    {
+        var men = menus.Split(',');
+        if (string.IsNullOrEmpty(controller))
+            return (men.Contains(Request.RequestContext.RouteData.Values["action"])) ? "active" : "";
+        return (men.Contains(Request.RequestContext.RouteData.Values["action"]) && Request.RequestContext.RouteData.Values["controller"].ToString() == controller) ? "active" : "";
+    }
+}<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>@ViewBag.Title Shifter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        @Styles.Render("~/Content/bootstrap/css")
+        @Styles.Render("~/Content/Other/css")
+
+        <link rel="stylesheet" href="~/Content/Less/Shifter.css" type="text/css">
+
+        @Scripts.Render("~/bundles/libs")
+        <script src="~/Scripts/Lib/tinymce/tinymce.min.js"></script>
+
+        @{
+            var url = Url.Content("~/signalr/hubs");
+        }
+        <script src="@url"></script>
+
+        @{Html.RenderPartial("AppRoutes");}
+
+        @RenderSection("head", required: false)
+        @Html.Partial("_html5shiv")
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-51104368-2', 'shiftmanager.co.za');
+            ga('send', 'pageview');
+
+        </script>
+        @{
+            Html.RenderPartial("Favicons");
+        }
+    </head>
+<body>
+    <div class="navbar navbar-top menuBackground no-print" role="banner">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header menuBackground">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <a class="navbar-brand logoShifter" href="#"><img src="~/Content/images/MyShifter180x50.png" height="50" width="180" /></a>
+            </div>
+            <nav class="navbar-collapse collapse" id="navbar-collapse-1" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li class="@CurMenuClass("Index", "Dashboard")">
+                        <a href="@Url.Action("Index", "Dashboard")">Dashboard <span id="messages" class="badge menuNotificationsAlert"></span></a>
+                    </li>
+                    <li class="@CurMenuClass("ManageSchedule", "ShiftSchedule")">
+                        @Html.ActionLink("Schedule", "ManageSchedule", "ShiftSchedule")
+                    </li>
+                    <li class="@CurMenuClass("ManageWaiters", "Waiter")">
+                        @Html.ActionLink("Staff", "ManageWaiters", "Waiter")
+                    </li>
+                    <li class="@CurMenuClass("ManageWall", "Wall")">
+                        @Html.ActionLink("Wall", "ManageWall", "Wall")
+                    </li>
+                    <li class="@CurMenuClass("ManageTimeslots", "ShiftTimeslot")">
+                        @Html.ActionLink("Timeslots", "ManageTimeslots", "ShiftTimeslot")
+                    </li>
+                    <li class="@CurMenuClass("EditProfile", "Account") @CurMenuClass("SaveProfile", "Account")">
+                        @Html.ActionLink("Profile", "EditProfile", "Account")
+                    </li>
+                    <li class="@CurMenuClass("SendFeedback", "Feedback")">
+                        @Html.ActionLink("Feedback", "Index", "Feedback")
+                    </li>
+                    <li>
+                        @if (Request.IsAuthenticated)
+                        {
+
+                            <form id="logoutForm" method="POST" action="@SharedConfig.LogoutUrl">
+                                @Html.AntiForgeryToken()
+                                <a class="menuLogOff" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            </form>
+                        }
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="row helpIconWrap">
+        <a id="helpIcon" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
+    </div>
+    <div class="container">
+        @Html.Partial("_alerts")
+        @Html.Partial("_validationSummary")
+        @{ Html.RenderPartial("ShifterHelp"); }
+        @RenderBody()
+        <img class="ajax-loader" id="ajaxLoader" src="~/Content/images/loader.gif" height="128" width="128" />
+
+        <div class="col-xs-12">
+            <hr>
+            <footer>
+                <p>&copy; MyShifter @System.DateTime.Now.ToString("yyyy")</p>
+            </footer>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dataService;
+        $(function () {
+            dataService = new DataService();
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("CheckForMessages", "Dashboard")",
+                success: function (result) {
+                    $("#messages").html(result);
+                    if (result > 0) {
+                        $("#messages").show();
+                    } else {
+                        $("#messages").hide();
+                    }
+                }
+            });
+
+            $("#helpIcon").on("click", function (e) {
+                e.preventDefault();
+                $("ol#" + $(this).attr("joyride")).joyride('destroy');
+                $("ol#" + $(this).attr("joyride")).joyride({
+                    autoStart: true
+                });
+                return false;
+            });
+
+            var url = location.toString();
+            if (url.match('jrHelp')) {
+                $("#helpIcon").click();
+            }
+        });
+        
+    </script>
+
+    @Scripts.Render("~/bundles/appLibs")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,18 @@
+﻿@model Shifter.Managers.Web.ViewModels.RestaurantsViewModel
+
+<style>
+    .btnWidth {
+        min-width: 100px;
+    }
+</style>
+<h2>Select Restaurant</h2>
+
+@foreach (var restaurant in Model.Restaurants)
+{
+    <div class="row-fluid form-group">
+        <div class="btn btn-default btnWidth">
+            @Html.ActionLink(restaurant.Name, "SetRestaurant", new { restaurantId = restaurant.Id })
+        </div>
+    </div>
+}
+

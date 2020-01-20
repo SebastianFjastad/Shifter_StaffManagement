@@ -1,0 +1,39 @@
+﻿@model Shifter.Managers.Web.ViewModels.ShiftSummaryViewModel
+
+@{
+    var editableShift = Model.ShiftIsInThePast() ? "pastShift" : "shift";
+    var experience = string.Empty;
+
+    if (Model.Shift.Staff.IsNotNull())
+    {
+        experience = Model.Shift.Staff.IsExperienced ? "experienced" : "rookie";
+    }
+
+    var availablilityTooltip = Model.ShowAvailabilityHint() ? string.Format("{0} has made this shift available.", Model.Shift.Staff.FirstName) : string.Empty;
+
+    var isAvailable = Model.Shift.GetAssignedToHint() == "Available" ? "isAvailable" : string.Empty;
+        
+}
+
+<style>
+    .isAvailable {
+        color: lightgray;
+    }
+</style>
+
+    <div id="shift_@Model.Shift.Id" class="@editableShift filterableShift" data-shift-id="@Model.Shift.Id" data-shift-time="@Model.Shift.GetFormattedTime()" data-toggle="tooltip" title="@availablilityTooltip">
+        <div class="@experience @isAvailable">
+            @Model.Shift.GetAssignedToHint()
+            @if (Model.ShowAvailabilityHint())
+            {
+                <span style="color: gray" class="glyphicon glyphicon-info-sign"></span>
+            }
+        </div>
+        <div class="shiftTimeSize">@Model.Shift.GetFormattedTime()</div>
+    </div>
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("[data-toggle=tooltip]").tooltip();
+    });
+</script>

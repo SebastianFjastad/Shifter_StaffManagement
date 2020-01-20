@@ -1,0 +1,102 @@
+﻿@using Framework
+@using Framework.CustomTypes
+@using Shifter.Shared.WebClient.Helpers
+@using Shifter.Waiters.Web.Utils
+@model Shifter.Waiters.Web.ViewModels.AvailableShiftsViewModel
+
+@*Logged in waiter*@
+<div class="backgroundContainer">
+    <table>
+        <tr class="day-row">
+            <td class="shifColumnHeader blank"></td>
+            <td class="shifColumnHeader">My shifts</td>
+            <td class="shifColumnHeader">Available</td>
+        </tr>
+        @foreach (var day in Enum.GetValues(typeof(DayOfWeekStartingAtMonday)))
+        {
+            var waitersShifts = Model.GetWaitersShifts((DayOfWeekStartingAtMonday)day);
+            var noShift = waitersShifts.Any() ? string.Empty : "noShift";
+
+            <tr class="day-row">
+                @*Day of Week*@
+                <td class="shiftWaiter scheduleDay waiterName" data-days-date="@Dates.GetFormattedDateFromDayAndWeek((int)day, Model.WeekNumber, SharedConstants.DateFormat)">
+                    <div class="shiftTimeHeading">@Dates.GetFormattedDateFromDayAndWeek((int)day, Model.WeekNumber, SharedConstants.ShortDayFormat)</div>
+                </td>
+
+
+                @*Waiter's Shifts*@
+                @if (waitersShifts.Count() > 1)
+                {
+                    var btnOrPanelIfInPast = Model.HasDayPassed((DayOfWeekStartingAtMonday)day) ? "panel panel-default" : "btn btn-default ";
+
+                    <td class="ownShift @btnOrPanelIfInPast shiftWaiter updateShifts @noShift" data-shift-date="@waitersShifts.First().StartTime.ToString(SharedConstants.DateFormat)">
+                        @foreach (var shift in waitersShifts)
+                        {
+                            var disabledColourForInThePast = shift.StartTime < DateTime.Now ? "disabledColor" : string.Empty;
+                            var available = shift.IsAvailable ? "shiftAvailable" : "shiftUnavailable";
+
+                            <div class="shiftTime @available @disabledColourForInThePast">@shift.GetFormattedTime()</div>
+                        }
+                    </td>
+                }
+                else if (waitersShifts.Count() == 1)
+                {
+                    var shift = waitersShifts.First();
+                    var isShiftUnavailable = !shift.IsAvailable;
+
+                    var updateAvailability = shift.StartTime < DateTime.Now ? string.Empty : "updateAvailability";
+                    var disabledColourForInThePast = shift.StartTime < DateTime.Now ? "disabledColor" : string.Empty;
+                    //var btnOrPanelIfInPast = shift.StartTime < DateTime.Now ? "panel panel-default" : "btn btn-default ";
+                    var available = shift.IsAvailable ? "shiftAvailable" : "shiftUnavailable";
+
+                    <td class="ownShift @*@btnOrPanelIfInPast*@ @noShift shiftWaiter @updateAvailability" data-shift-id="@shift.Id" data-make-available="@isShiftUnavailable">
+                        <div class="shiftTime @available @disabledColourForInThePast">@shift.GetFormattedTime()</div>
+                    </td>
+                }
+                else
+                {
+                    <td class="shiftWaiter ownShift @noShift"></td>
+                }
+
+                @*Available Shifts*@
+                @{
+                    var availableShifts = Model.GetAvailableShifts((DayOfWeekStartingAtMonday)day);
+                    var distinctShifts = availableShifts.GroupBy(s => s.StartTime).Select(g => g.First()).ToList();
+
+
+                    var shiftsToTakeIndicator = availableShifts.Any() && Model.CanWaiterWorkAvailableTimes(distinctShifts) ? "takeShifts" : "disabledColor";
+                    var date = availableShifts.Any() ? availableShifts.First().StartTime.ToString() : string.Empty;
+                    var noAvailableShifts = availableShifts.Any() ? string.Empty : "noShift";
+
+                }
+                <td class="openShift shiftWaiter @shiftsToTakeIndicator @noAvailableShifts" data-shift-date="@date">
+                    @foreach (var shift in distinctShifts)
+                    {
+                        var available = Model.CanWaiterWorkShift(shift) ? string.Empty : "disabledColor";
+                        <div class="shiftTime @available">@shift.GetFormattedTime()</div>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div id="elementForAjax">
+    @*Do not delete*@
+</div>
+
+<script type="text/javascript">
+    $(function () {
+
+        $(".day-row").each(function () {
+            var ownShiftsHeight = $(".shiftWaiter.ownShift", this).outerHeight();
+            var openShiftsHeight = $(".shiftWaiter.openShift", this).outerHeight();
+
+            if (ownShiftsHeight > openShiftsHeight) {
+                $(".shiftWaiter", this).css("height", ownShiftsHeight);
+            } else {
+                $(".shiftWaiter", this).css("height", openShiftsHeight);
+            }
+        });
+    })
+</script>

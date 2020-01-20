@@ -1,0 +1,65 @@
+﻿@model Shifter.Waiters.Web.ViewModels.Wall.WallViewModel
+
+<div id="postsContainer">
+    @foreach (var wallPost in Model.WallPosts)
+    {
+        Html.RenderPartial("WallPost", wallPost);
+    }
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".commentInput").keyup(function () {
+            var saveButton = $(this).parent().find(".saveComment");;
+            if ($(this).val().length > 0) {
+                saveButton.show();
+            } else {
+                saveButton.hide();
+            }
+        });
+
+        $(".showHidePost").click(function (e) {
+            if (!$(e.target).is('.showComments')) {
+                var post = $(this).closest(".post");
+                var expanCollapseButton = post.find(".expandCollapseIcon");
+
+                if (expanCollapseButton.hasClass("glyphicon-plus-sign")) {
+                    post.find(".postBodyContainer").slideDown("fast");
+                    expanCollapseButton.removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
+
+                } else {
+                    post.find(".postBodyContainer").slideUp("fast");
+                    hideComments(".showComments", this);
+                    $(".showComments > .glyphicon").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+                    expanCollapseButton.removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
+                };
+            }
+            
+        });
+
+        function showComments(caller) {
+            $(caller).closest(".post").find(".commentsContainer").slideDown("fast");;
+        };
+
+        function hideComments(caller) {
+            $(caller).closest(".post").find(".commentsContainer").slideUp("fast");;
+        };
+
+        $(".showComments").click(function () {
+            var visible = $(".showComments > .glyphicon").is(".glyphicon-chevron-up");
+            if (visible) {
+                hideComments(this);
+                $(".glyphicon", this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+            } else {
+                showComments(this);
+                $(".glyphicon", this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateSeenWallPosts", "Wall")'
+        });
+    });
+
+</script>

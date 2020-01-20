@@ -1,0 +1,62 @@
+﻿@using System.Web.UI.WebControls.Expressions
+@using Framework
+@using Shifter.Service.Api.Dtos
+@model Shifter.Waiters.Web.ViewModels.AllShiftsViewModel
+
+<input type="hidden" id="currentDateForDayView" value="@Model.SelectedDay.ToString(SharedConstants.DateFormat)" />
+
+@*Menu Bar*@
+<div class="row-fluid menuBar">
+    <div id="allShiftsMenuArea" class="row">
+        <div class="col-xs-12">
+            <a href="@Url.Action("Index", "ShiftSchedule")">
+                <span class="glyphicon glyphicon-circle-arrow-left backButton" style="margin:7px; margin-right: 20px;"></span>
+            </a>
+            <div class="menuBarDate">@Model.SelectedDay.ToString(SharedConstants.ShortDateFormat)</div>
+        </div>
+    </div>
+</div>
+
+<table class="backgroundContainerAll">
+    @foreach (var waiter in Model.OrderedWaiters)
+    {
+        var waitersShifts = waiter.Shifts;
+
+        <tr class="waiter-row">
+            @*Waiter name*@
+            <td class="shiftWaiter waiterNameAll">
+                <div class="waiterNameAll">@waiter.FirstName</div>
+            </td>
+
+            @*Waiter's Shifts*@
+            @{
+        var shiftsToTakeIndicator = waitersShifts.Any() && Model.CanWaiterWorkAvailableTimes(waitersShifts) ? "takeShiftsFromWaiter" : "disabledColor";
+        var date = waitersShifts.Any() ? waitersShifts.First().StartTime.ToString() : string.Empty;
+        var noAvailableShifts = waitersShifts.Any() ? string.Empty : "noShift";
+
+            }
+
+            <td class="shiftWaiter @shiftsToTakeIndicator @noAvailableShifts" data-shift-date="@date" data-from-waiter="@waiter.Id">
+                @foreach (var shift in waitersShifts)
+                {
+                    var available = Model.CanWaiterWorkShift(shift) ? string.Empty : "disabledColor";
+                    <div class="shiftTime @available">@shift.GetFormattedTime()</div>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        $(".waiter-row").each(function () {
+            var shiftBlockHeight = $(".shiftWaiter.waitersShifts", this).outerHeight();
+            $(".shiftWaiter", this).css("height", shiftBlockHeight);
+
+        });
+    });
+</script>
+
+<div id="elementForAjax">
+    @*Do not delete*@
+</div>

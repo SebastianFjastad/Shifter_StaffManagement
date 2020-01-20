@@ -1,0 +1,20 @@
+﻿@model Shifter.Web.ViewModels.Restaurants.RestaurantsViewModel
+
+<style>
+    .btnRestaurant {
+        min-width: 80px !important;
+        margin-bottom: 10px;
+    }
+</style>
+
+<h3>Select Restaurant</h3>
+
+@foreach (var restaurant in Model.Restaurants)
+{
+    <div class="row-fluid">
+        <div class="btn btn-default btnRestaurant">
+            @Html.ActionLink(restaurant.Name, "SetRestaurant", new { restaurantId = restaurant.Id })
+        </div>
+    </div>
+}
+

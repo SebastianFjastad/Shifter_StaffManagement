@@ -1,0 +1,167 @@
+﻿
+<style>
+    .displayNone {
+        display: none;
+    }
+
+    .weak {
+        color: orange;
+    }
+
+    .strong {
+        color: green;
+    }
+
+    .unassigned {
+        color: lightgrey;
+    }
+</style>
+
+@*Timeslot Help*@
+<ol id="timeslotHelp" class="displayNone">
+    <li data-text="Next">
+        <h2>Timeslots</h2>
+        <p>These are the different times you would like your staff to work</p>
+    </li>
+    <li data-class="addTimeSlotHelp" data-text="Next" data-options="tipLocation:top;tipAnimation:fade">
+        <h2>Add Timeslot</h2>
+        <p>Add a timeslot by choosing a Start and End time.</p>
+    </li>
+    <li data-class="currentTimeslotsHelp" data-button="Close" data-options="tipLocation:top;tipAnimation:fade">
+        <h2>Current Timeslots</h2>
+        <p>These Timeslots are the ones you are currently using.</p>
+    </li>
+</ol>
+
+@*Waiter Help*@
+<ol id="waiterHelp" class="displayNone">
+    <li data-text="Next">
+        <h2>Waiter</h2>
+        <p>Add, Edit, and Delete your staff's profiles.</p>
+    </li>
+    <li data-class="addWaiterHelp" data-text="Next">
+        <h2>Add staff member</h2>
+        <p>&nbsp;</p>
+    </li>
+    <li data-class="lastSeenWaiterHelp" data-text="Next">
+        <h2>Last seen</h2>
+        <p>See when last a staff member logged on to see changes to the schedule or wall posts.</p>
+    </li>
+    <li data-class="emailWaiterHelp" data-text="Next">
+        <h2>Email address</h2>
+        <p>Make sure each staff member's email address is up to date.</p>
+        <p>Their log in details will be sent to this address. If there is a mistake, correct the email and click "Send new password".</p>
+    </li>
+    <li data-class="maxShiftsWaiterHelp" data-text="Next">
+        <h2>Max shifts</h2>
+        <p>Limit the number of shifts the staff member can work per week.</p>
+    </li>
+    <li data-class="canSwapWaiterHelp" data-text="Next">
+        <h2>Can swap shifts</h2>
+        <p>Allow each staff member to swap shifts if there are available shifts</p>
+    </li>
+
+    @*We are not currently using the weak/strong feature*@
+
+    @*<li data-class="weakStrongWaiterHelp" data-text="Next">
+            <h2>Weak and Strong</h2>
+            <p>These checkboxes mark your waiter as either weak (<span class="weak">yellow</span>) or strong(<span class="strong">green</span>).</p>
+            <p>This is used to see the strength of staff working on a day.</p>
+        </li>*@
+
+</ol>
+
+@*Schedule Help*@
+<ol id="scheduleHelp" class="displayNone">
+    <li data-text="Next">
+        <h2>Schedule</h2>
+        <p>The Schedule is where you can see when all your waiters are working.</p>
+        <p>You can Add, Delete and Edit shifts.</p>
+    </li>
+    <li data-class="viewToggleScheduleHelp" data-text="Next">
+        <h2>View Toggle</h2>
+        <p>In the default view you can add, edit and delete shifts.</p>
+        <p>In the other view you have a more conventional schedule view which is read only.</p>
+    </li>
+    <li data-class="filterScheduleHelp" data-text="Next">
+        <h2>Timeslot Filter</h2>
+        <p>Use the Filter to see only the Timeslot selected.</p>
+        <p>For example,you may want to see all the morning shifts for the week.</p>
+    </li>
+    <li data-class="weekTabsScheduleHelp" data-text="Next">
+        <h2>Week Tabs</h2>
+        <p>The Week Tabs let you navigate through all four weeks, AND go back to past weeks.</p>
+        <p>By default the current week is open.</p>
+    </li>
+    <li data-class="dayOfWeekScheduleHelp" data-text="Next">
+        <h2>Day Of Week</h2>
+        <p>These are they days of the week, including the date.</p>
+        <p>If the day colour is red that means it's in the past.</p>
+        <p>If the day has passed or it's the current day, you can edit the exact time of a waiter's shift if they arrived late or left early.</p>
+        <p>This is important for calculating the hours worked.</p>
+    </li>
+    <li data-class="addButtonScheduleHelp" data-text="Next">
+        <h2>Add Button</h2>
+        <p>If you would like to add more shifts to a day, use this button.</p>
+        <p>After clicking "Add", either assign a waiter, or if it is well in advance, leave it open and let a waiter pick it up</p>
+    </li>
+    <li data-class="strengthBarScheduleHelp" data-text="Next">
+        <h2>Strength Bar</h2>
+        <p>See the strength of the staff that are working that day. It is best used with the Timeslot filter to see the strength per Timeslot.</p>
+        <p><span class="strong">Green</span> shows the percentage of strong staff, <span class="weak">Yellow</span> are weaker, and <span class="unassigned">Grey</span> are still available </p>
+    </li>
+    <li data-class="shiftScheduleHelp" data-text="Next">
+        <h2>Shifts</h2>
+        <p>To Edit or Delete a Shift, simply click on it.</p>
+    </li>
+    <li data-button="Close">
+        <h2>Important!</h2>
+        <p>If you do not fully understand how the Schedule works, please refer to the Help PDF or contact us at support@myshifter.co.za</p>
+    </li>
+</ol>
+
+@*Calculate*@
+<ol id="calculateHelp" class="displayNone">
+    <li data-text="Next">
+        <h2>Calculate</h2>
+        <p>Using Calculate you can work out all the hours and pay due for a selected time.</p>
+    </li>
+    <li data-class="startDateCalculateHelp" data-text="Next">
+        <h2>Start Date</h2>
+        <p>Use the date picker to select the start date.</p>
+    </li>
+    <li data-class="endDateCalculateHelp" data-text="Next">
+        <h2>End Date</h2>
+        <p>Then select the end date.</p>
+    </li>
+    <li data-class="rateCalculateHelp" data-button="Close">
+        <h2>Rate</h2>
+        <p>Enter the hourly rate at which your staff get paid.</p>
+        <p>If they get paid different amounts then you will need to do this multiple times for each pay rate.</p>
+    </li>
+</ol>
+
+@*Settings*@
+<ol id="settingsHelp" class="displayNone">
+    <li data-text="Next">
+        <h2>Settings</h2>
+        <p>These are important settings that control shift swapping and empty shift notifications</p>
+    </li>
+    <li data-class="swapLockSettingsHelp" data-text="Next">
+        <h2>Swapping Lock</h2>
+        <p>Set the number of days you want to stop waiters from swapping before the shift starts.</p>
+        <p>As an example, you don't want waiters swapping the night before.</p>
+    </li>
+</ol>
+
+@*Wall*@
+<ol id="wallHelp" class="displayNone">
+    <li data-text="Next">
+        <h2>Wall</h2>
+        <p>Communicate with your staff.</p>
+    </li>
+    <li data-class="staffTypeWallHelp" data-text="Next">
+        <h2>View posts by group</h2>
+        <p>You want to be notified if shifts aren't assigned. Set this to a couple of days after the swap lock period.</p>
+    </li>
+</ol>

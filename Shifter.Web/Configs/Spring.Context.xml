@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net" xmlns:wcf="http://www.springframework.net/wcf">
+
+  <!-- WCF Services -->
+  <wcf:channelFactory id="managerService"
+      channelType="Shifter.Service.Api.Services.IManagerService, Shifter.Service.Api"
+      endpointConfigurationName="managerServiceEndpoint"/>
+
+  <wcf:channelFactory id="restaurantService"
+      channelType="Shifter.Service.Api.Services.IRestaurantService, Shifter.Service.Api"
+      endpointConfigurationName="restaurantServiceEndpoint"/>
+
+  <wcf:channelFactory id="staffService"
+       channelType="Shifter.Service.Api.Services.IStaffService, Shifter.Service.Api"
+       endpointConfigurationName="staffServiceEndpoint"/>
+
+  <wcf:channelFactory id="authenticationService"
+       channelType="Shifter.Service.Api.Services.IAuthenticationService, Shifter.Service.Api"
+       endpointConfigurationName="authenticationServiceEndpoint"/>
+
+</objects>

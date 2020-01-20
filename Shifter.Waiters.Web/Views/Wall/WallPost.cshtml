@@ -1,0 +1,50 @@
+﻿@using Framework
+@using Shifter.Service.Api.Dtos
+@model WallPostDto
+
+<div class="row">
+    <div class="post">
+        <div class="postTitleContainer">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="glyphicon glyphicon-plus-sign pull-left expandCollapseIcon showHidePost" style="font-size: 30px; cursor: pointer;"></span>
+                    @{
+                        var noComments = Model.Comments.Any() ? Model.Comments.Count() + " Comments" : "No Comments";
+                    }
+                    <div class="postTitle">
+                        <div class="h4">@Model.Header</div>
+                        <div class="postDate">@Model.PostedDate.ToString(SharedConstants.DateFormat)</div>
+                        <div class="postBodyContainer">
+                            @Html.Raw(Model.Body)
+                            <div class="showComments">
+                                @noComments<span class="glyphicon glyphicon-chevron-down"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-xs-12">
+
+                <div class="commentsContainer">
+                    @if (Model.Comments.Any())
+                    {
+                        foreach (var comment in Model.Comments)
+                        {
+                            <div class="commentDate">@comment.CommentDate.ToString(SharedConstants.DateFormat)</div>
+                            <div class="comment">
+                                <div><span class="commentorName">@comment.CommenterName</span> @comment.Value</div>
+                            </div>
+                        }
+                    }
+                    <form method="POST" action="@Url.Action("SaveComment", "Wall")">
+                        <textarea name="comment" class="form-control commentInput" placeholder="Write a comment..."></textarea>
+                        @Html.Hidden("wallPostId", Model.Id)
+                        <input type="submit" class="btn btn-success saveComment" style="display: none" value="Save" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

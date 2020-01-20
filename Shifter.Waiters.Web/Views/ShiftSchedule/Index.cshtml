@@ -1,0 +1,115 @@
+﻿@using Framework
+@using Shifter.Domain
+@using Shifter.Shared.WebClient.Helpers
+@using Shifter.Waiters.Web.Utils
+
+<div>
+    <div class="row">
+        @*Results*@
+        <div id="shiftScheduleResults" class="col-xs-12">
+            @for (var weekNumber = 1; weekNumber <= 4; weekNumber++)
+            {
+                <div class="panel-group " id="accordion_@weekNumber">
+                    <div id="weekButton_@weekNumber" class="weekTitleContainer clearfix loadShifts"
+                         data-toggle="collapse"
+                         data-parent="#accordion_@weekNumber"
+                         href="#collapseWeek_@weekNumber"
+                         data-week-number="@weekNumber"
+                         data-from-date="@Dates.GetFormattedDateFromDayAndWeek(1, weekNumber, SharedConstants.DateFormat)"
+                         data-to-date="@Dates.GetFormattedDateFromDayAndWeek(7, weekNumber, SharedConstants.DateFormat)">
+                        <div>
+                            <span class="glyphicon glyphicon-plus-sign plusMinusIconColor" style="font-size:24px; float:left; margin-right:10px;"></span>
+                            <div class="" style="float:left; font-size: 20px;">@Dates.GetDateFromTo(weekNumber)</div>
+                        </div>
+                    </div>
+
+                    <div id="collapseWeek_@weekNumber" class="panel-collapse collapse row">
+                        <div id="weekContainer_@weekNumber" data-week-number="@weekNumber" class="col-xs-12 weekContainer">
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    @*Popups*@
+    <div id="takeShiftPopup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Take shift</h4>
+                </div>
+                <div id="ShiftToTake" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button id="takeShiftCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="takeShiftConfirm" type="button" class="btn btn-primary">Take</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="updateShiftPopup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="updateShiftContainer">
+                @*dont delete*@
+            </div>
+        </div>
+    </div>
+    <div id="scheduleChangedNotification" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="shiftContainer">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Schedule notification</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The schedule has changed, would you like to refresh it?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    @Html.ActionLink("Yes", "Index", "ShiftSchedule", new { @Class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="makeAvailableConfirmModal" tabindex="-1" role="dialog" aria-labelledby="Attention" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Make shift available</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="makeAvailableConfirmMessage">
+
+                    </div>
+                    <form id="updateAvailabilityForm">
+                        @Html.Hidden("shiftId")
+                        @Html.Hidden("makeAvailable")
+                        @Html.Hidden("clientKey")
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="makeAvailableConfirm" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var index = new Index();
+            index.shiftScheduleChangedTopic = "@MessageTopics.ShiftScheduleChanged";
+            index.clientKey = "@Session[Constants.SessionKeys.ClientKey]";
+            index.Load();
+        });
+
+
+    </script>
+}

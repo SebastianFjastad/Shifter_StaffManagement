@@ -1,0 +1,59 @@
+﻿@using Framework
+@using Shifter.Service.Api.Dtos
+@model WallPostDto
+
+@{
+    var noComments = Model.Comments.Any() ? Model.Comments.Count() + " Comments" : "No Comments";
+}
+
+<div class="row post">
+    <div class="postTitleContainer">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="circle expandCollapse showHidePost">
+                    <span class="glyphicon glyphicon-plus plusIcon expandCollapseIcon"></span>
+                </div>
+                <div class="postTitle pull-left">
+                    <div class="h3">
+                        @Model.Header
+                    </div>
+                    <div class="postTitleDate">
+                        <span>Posted on</span> @Model.PostedDate.ToString(SharedConstants.DateFormat)
+                    </div>
+                    <div class="postTitleSeenBy">
+                        <span>Seen by @Model.SeenByNames.Count()/@Model.TotalStaff</span>
+                    </div>
+                </div>
+                <div class="circle delete deletePost pull-right" style="position: relative" data-post-id="@Model.Id">
+                    <span class="glyphicon glyphicon-remove deleteIcon"> </span>
+                </div>
+                <div class="circle edit editPost pull-right" style="position: relative" data-post-id="@Model.Id">
+                    <span class="glyphicon glyphicon-pencil editIcon"> </span>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="postBody" style="display: none">
+                    <div class="readonlyBody">
+                        @Html.Raw(Model.Body)
+                    </div>
+                    <div class="showComments">
+                        @noComments<span class="glyphicon glyphicon-chevron-down"></span>
+                    </div>
+                </div>        
+            </div>
+        </div>
+        
+    </div>
+    <div class="commentsContainer" style="display: none">
+        @foreach (var comment in Model.Comments)
+        {
+            <div>
+                <div class="commentDate">@comment.CommentDate.ToString(SharedConstants.DateFormat)</div>
+                <div><span class="commentorName">@comment.CommenterName</span>: @comment.Value</div>
+            </div>
+        }
+    </div>
+</div>

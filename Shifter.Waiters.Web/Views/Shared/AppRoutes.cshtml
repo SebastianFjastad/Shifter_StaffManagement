@@ -1,0 +1,8 @@
+﻿@{
+    var routes = new Shifter.Waiters.Web.Utils.UrlRouteConfig();
+    var routeConfig = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(routes);
+}
+
+<script type="text/javascript">
+    window.appRoutes = @Html.Raw(routeConfig)
+</script>

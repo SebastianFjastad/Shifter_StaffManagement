@@ -1,0 +1,13 @@
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+[assembly: AssemblyTitle("Framework")]
+[assembly: AssemblyDescription("Framework Foundation")]
+[assembly: AssemblyConfiguration("")]
+
+[assembly: InternalsVisibleTo(@"Framework.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010053fe9886bf457e3161c4a4fb906ed7b03c0051f3bb1e99defcfc3c35abb4b00c7b1d451f4e78c45c575a29621bcb773575ac58635c83dca074a4e699b0717a493d9d698657b8cd73e642cd0862305dd2f7666e44b17d3f2d117dbcb8a55b7c996958a88662833bcb0c0e47d60a662a9f8f150ed89f89676d09f3f4305c6312d0")]
+[assembly: InternalsVisibleTo(@"Framework.Nhibernate, PublicKey=002400000480000094000000060200000024000052534131000400000100010053fe9886bf457e3161c4a4fb906ed7b03c0051f3bb1e99defcfc3c35abb4b00c7b1d451f4e78c45c575a29621bcb773575ac58635c83dca074a4e699b0717a493d9d698657b8cd73e642cd0862305dd2f7666e44b17d3f2d117dbcb8a55b7c996958a88662833bcb0c0e47d60a662a9f8f150ed89f89676d09f3f4305c6312d0")]

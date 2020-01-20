@@ -1,0 +1,27 @@
+﻿@using Shifter.Managers.Web
+@using Shifter.Managers.Web.Utils
+@model Tuple<Shifter.Managers.Web.ViewModels.WaiterViewModel, int>
+
+@{
+    var waiterViewModel = Model.Item1;
+    var weekNumber = Model.Item2;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (DayOfWeek day in Enum.GetValues(typeof (DayOfWeek)))
+        {
+            var dayNumber = (int) day + 1;
+
+            <div class="btn-group">
+                <button class="btn btn-default" type="button">
+                    <strong>@day.ToString()</strong>
+                    <br />
+                    @waiterViewModel.GetDateFromDayAndWeek(dayNumber, weekNumber).ToString(Constants.Dates.ShortDateFormat)
+                    <br />
+                    @waiterViewModel.GetWaiterShift(dayNumber, weekNumber)
+                </button>
+            </div>
+        }
+    </div>
+</div>

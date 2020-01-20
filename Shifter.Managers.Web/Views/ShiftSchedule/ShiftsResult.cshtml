@@ -1,0 +1,13 @@
+﻿@using Framework
+@model Shifter.Managers.Web.ViewModels.ShiftsResultViewModel
+
+@{
+    var hasErrors = Model.HasErrors ? "inError" : string.Empty;
+}
+
+<div class="@hasErrors">
+    @foreach (var shift in Model.Shifts)
+    {
+        <div data-shift-id="@shift.Id" data-start-time="@shift.StartTime.ToString(SharedConstants.DateTimeSpecificTimeFormat)" data-end-time="@shift.EndTime.ToString(SharedConstants.DateTimeSpecificTimeFormat)" class="shiftTimeSize existingShift">@shift.GetFormattedTime()</div>
+    }
+</div>

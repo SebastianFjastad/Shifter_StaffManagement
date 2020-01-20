@@ -1,0 +1,460 @@
+﻿
+.hideElement {
+    display: none;
+}
+
+.showElement {
+    display: block;
+}
+
+/*-----------Help JoyRide---------------*/
+.helpIconWrap {
+    position: absolute;
+}
+
+    .helpIconWrap > a {
+        visibility: hidden;
+        position: fixed;
+        font-size: 35px;
+        right: 5px;
+        z-index: 999;
+        opacity: 0.4;
+    }
+
+        .helpIconWrap > a[joyride] {
+            visibility: visible;
+        }
+
+/*---------Edit Staff Member ManageWaiters------*/
+.pointer {
+    cursor: pointer;
+}
+
+.floatLeft {
+    float: left;
+}
+
+.marginTop {
+    margin-top: 10px;
+}
+
+.timeOffContainer {
+    margin-bottom: 15px;
+}
+
+.timeOffDates {
+    padding-top: 7px;
+}
+
+/*---------------ManageWaiters----------*/
+.waiter-shift {
+    margin-top: 3px;
+    margin-left: 3px;
+    float: left;
+    width: 100px;
+    margin-bottom: 0;
+}
+
+.waiterShiftHeading {
+    padding: 8px !important;
+}
+
+.waiterShiftBody {
+    padding: 10px !important;
+    min-height: 60px;
+}
+
+.hidden {
+    display: none;
+}
+
+.details-control {
+    color: green;
+    cursor: pointer;
+}
+
+.editButton {
+    visibility: hidden;
+}
+
+.memberRow:hover .editButton {
+    visibility: visible;
+}
+
+.infoHeader {
+    font-weight: bolder;
+}
+
+/*-------------Wall CSS---------------*/
+.postTitleContainer {
+    min-height: 70px;
+    margin-top: 20px;
+    padding: 10px;
+    border: solid;
+    border-width: 1px;
+    border-color: #357ebd;
+    background-color: aliceblue;
+    color: rgb(117, 115, 115);
+}
+
+.postTitle {
+    margin-left: 60px;
+    float: left;
+}
+
+.postBody {
+    margin-top: 10px;
+}
+
+.postTitleDate {
+    float: left;
+    margin-right: 15px;
+}
+
+.postTitleSeenBy {
+    float: left;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    opacity: 0.3;
+    float: left;
+    cursor: pointer;
+    position: absolute;
+}
+
+    .circle:hover {
+        opacity: 0.7;
+    }
+
+    .circle.expandCollapse {
+        background-color: #357ebd;
+    }
+
+    .circle.edit {
+        background-color: darkgrey;
+        color: white;
+        font-size: 25px;
+        float: right;
+        position: relative;
+        margin-right: 10px;
+    }
+
+.editIcon {
+    margin-top: 10px;
+    margin-left: 12px;
+}
+
+.circle.delete {
+    background-color: darkgrey;
+    color: white;
+    font-size: 32px;
+    float: right;
+    position: relative;
+    margin-right: 14px;
+}
+
+.deleteIcon {
+    margin-top: 7px;
+    margin-left: 9px;
+}
+
+.edit:hover {
+    background-color: darkorange;
+}
+
+.delete:hover {
+    background-color: red;
+}
+
+.plusIcon {
+    margin-top: 9px;
+    margin-left: 12px;
+    font-size: 28px;
+    color: white;
+}
+
+.glyphicon-minus {
+    margin-top: 8px;
+    margin-left: 9px;
+    font-size: 30px;
+}
+
+.showComments {
+    width: 140px;
+    height: 30px;
+    margin-top: 10px;
+    padding: 5px;
+    padding-left: 8px;
+    background-color: #357ebd;
+    color: white;
+    cursor: pointer;
+}
+
+    .showComments .glyphicon-chevron-down {
+        margin-left: 5px;
+    }
+
+    .showComments .glyphicon-chevron-up {
+        margin-left: 5px;
+    }
+
+.commentsContainer {
+    padding-left: 10px;
+    display: none;
+}
+
+.commentDate {
+    font-size: 9pt;
+    margin-top: 5px;
+    color: grey;
+}
+
+.commentorName {
+    font-weight: bold;
+}
+
+.managerWallSelect {
+    height: 35px;
+    padding: 8px;
+    padding-left: 10px;
+    width: 140px;
+    color: white;
+    background-color: #357ebd;
+    opacity: .5;
+    float: left;
+}
+
+    .managerWallSelect:hover {
+        opacity: 1;
+    }
+
+.managerStaffWall {
+    height: 35px;
+    margin-left: 20px;
+    padding: 8px;
+    padding-left: 10px;
+    width: 140px;
+    color: white;
+    background-color: #357ebd;
+    opacity: .5;
+    text-align: center;
+    float: left;
+}
+
+    .managerStaffWall:hover {
+        opacity: 1;
+    }
+
+.postTitleMargin {
+    margin-top: 0;
+}
+
+.postBodyEditor {
+    width: 100%;
+    height: 70%;
+}
+
+/*-----------ManageTimeslots Timselots------------*/
+.timeslotsContainer {
+    border: solid;
+    border-width: 1px;
+    border-color: #357ebd;
+    border-top-width: 0;
+}
+
+.timeslotTitleContainer {
+    min-height: 50px;
+    margin-top: 20px;
+    padding: 10px;
+    border: solid;
+    border-width: 1px;
+    border-color: #357ebd;
+    background-color: aliceblue;
+    color: rgb(117, 115, 115);
+}
+
+.timeslotTitle {
+    margin-left: 30px;
+    float: left;
+}
+
+.expandCollapseIconColor {
+    cursor: pointer;
+    color: #357ebd;
+}
+
+    .expandCollapseIconColor:hover {
+        opacity: 0.7;
+    }
+
+/*------------ShiftTimeslot Timeslots----------------*/
+.timePicker {
+    min-width: 120px !important;
+}
+
+.timePickerLable {
+    min-width: 110px !important;
+}
+
+.panelMinWidth {
+    min-width: 247px;
+}
+
+.addTimeslotContainer {
+    display: none;
+}
+
+/*----------------ShiftTimeslots Timeslots-------------*/
+.timeslotContainer {
+    min-width: 150px !important;
+}
+
+.timeslotTime {
+    min-width: 120px !important;
+}
+
+.timeslot {
+    visibility: hidden;
+}
+
+.timeslotRow:hover .timeslot {
+    visibility: visible;
+}
+
+.newTimeslotButton {
+    margin-left: 15px;
+    float: left;
+}
+
+
+/*----------------Dashboard-----------------*/
+.notificationContainerMargin {
+    margin: 5px;
+}
+
+.calculateContainer {
+    max-width: 700px;
+}
+
+.calculateHoursForm {
+    max-width: 430px;
+    min-width: 290px;
+}
+
+.calculateInputRow {
+    margin-top: 15px;
+}
+
+.calculateDatesFieldWidth {
+    width: 45px;
+}
+
+.calculateRateFieldWidth {
+    max-width: 149px;
+}
+
+.calculateButton {
+    max-width: 112px;
+}
+
+.settingsRow {
+    margin-top: 5px;
+}
+
+.settingsInput {
+    width: 50px;
+}
+
+.settingsSaveButton {
+    min-width: 55px;
+    margin-top: 10px;
+}
+
+.helpPrompt {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.numbers {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/*--------------EditProfile--------------*/
+.errorPadding {
+    padding: 5px;
+}
+
+    .errorPadding.errors {
+        color: red;
+    }
+
+.rowForSubmitButton {
+    margin-top: 10px !important;
+}
+
+    .rowForSubmitButton.submitButton {
+        min-width: 70px;
+    }
+
+/*-----------FeedbackForm-----------------*/
+.messageContainer {
+    padding: 5px;
+}
+
+    .messageContainer.errors {
+        color: red;
+    }
+
+    .messageContainer.info {
+        color: green;
+    }
+
+.rowForSubmitButton {
+    margin-top: 10px !important;
+}
+
+.submitButton {
+    min-width: 120px;
+}
+
+/*------------BootstrapLayoutBasic---------*/
+.invalid {
+    border-color: red !important;
+}
+
+.ajax-loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -64px; /* -1 * image width / 2 */
+    margin-top: -64px; /* -1 * image height / 2 */
+    display: none;
+}
+
+.menuBackground {
+    background-color: aliceblue;
+}
+
+.logoShifter {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-right: 5px !important;
+}
+
+.menuNotificationsAlert {
+    background-color: rgb(200,0,0) !important;
+    display: none;
+}
+
+.menuLogOff {
+    float: left;
+    height: 50px;
+    width: 80px;
+    padding-top: 15px;
+    padding-left: 15px;
+    text-decoration: none;
+}

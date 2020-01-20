@@ -1,0 +1,162 @@
+﻿@model Shifter.Managers.Web.ViewModels.SettingsViewModel
+
+<ul class="nav nav-tabs" id="settingsTabs">
+    @*<li class="active"><a id="notificationsTab" href="#notification" data-toggle="tab">Notifications</a></li>*@
+    <li><a id="calculateTab" href="#calculate" data-toggle="tab">Calculate</a></li>
+    <li><a id="settingsTab" href="#settings" data-toggle="tab">Settings</a></li>
+    <li><a href="#help" data-toggle="tab">Help</a></li>
+</ul>
+
+<div class="tab-content">
+    @*Notifications taken out for deploy*@
+    @*<div class="tab-pane active" id="notification">
+            @if (Model.Messages.Any())
+            {
+                <div class="row-fluid notificationContainerMargin" id="notificationsContainer">
+                    <ul class="list-group">
+                        @foreach (var msg in Model.Messages)
+                        {
+                            <li class="list-group-item">@msg.Text</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>*@
+
+    <div class="tab-pane calculateContainer" id="calculate">
+        <form id="calculateHoursForm" class="calculateHoursForm">
+            <input type="hidden" id="selectedStaffTypeIds" name="selectedStaffTypeIds" />
+            <div class="form-group calculateInputRow">
+                <div class="input-daterange input-group" id="datepicker">
+                    <span class="input-group-addon calculateDatesFieldWidth">From</span>
+                    <input type="text" class="input-sm form-control startDateCalculateHelp" name="fromDate" id="fromDate" />
+                    <span class="input-group-addon calculateDatesFieldWidth">To</span>
+                    <input type="text" class="input-sm form-control endDateCalculateHelp" name="toDate" id="toDate" />
+                </div>
+            </div>
+            <div class="row">
+                <div id="staffTypeContainer" class="col-xs-5">
+                    <select class="form-control" id="selectedStaffTypeId" multiple="multiple">
+                        @{
+                            foreach (var staffType in Model.StaffTypes)
+                            {
+                                <option data-staff-type-name="@staffType.Name" value="@staffType.Id">
+                                    @staffType.Name
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-xs-7">
+                    <div class="input-group">
+                        <span class="input-group-addon calculateDatesFieldWidth">R</span>
+                        <input type="text" class="form-control calculateRateFieldWidth rateCalculateHelp" placeholder="0.00" name="hourlyRate">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input id="calculateHours" class="btn btn-primary calculateButton" value="Calculate" />
+            </div>
+        </form>
+
+        <div id="waiterHoursContainer" class="table-responsive">
+
+        </div>
+
+    </div>
+
+    <div class="tab-pane" id="settings">
+        <div class="row form-group">
+            <form action="@Url.Action("SaveSettings", "Dashboard")" method="post" role="form" class="form-horizontal">
+                @Html.HiddenFor(model => model.Settings.RestaurantId)
+                @Html.HiddenFor(model => model.Settings.Id)
+                <div class="row-fluid col-xs-12 settingsRow">
+                    <input class="form-control col-sm-2 settingsInput swapLockSettingsHelp" type="number" min="0" name="Settings.NumDaysBeforeShiftSwappingLockDown" value="@Model.Settings.NumDaysBeforeShiftSwappingLockDown" />
+                    <label class="col-sm-10 col-xs-12 settingsRow">Swap lock period</label>
+                </div>
+
+                <div class="row-fluid col-xs-12">
+                    <input class="btn btn-success settingsSaveButton" type="submit" value="Save" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="tab-pane" id="help">
+        <div class="row">
+            <div class="helpPrompt form-group col-xs-12">Tutorial Tour</div>
+            <div class="form-group col-xs-12">Click through the help menu to the page you would like help with.</div>
+            <div class="form-group col-xs-12">
+                <dl>
+                    <dt>
+                        @Html.ActionLink("1 - Timeslots", "ManageTimeslots", "ShiftTimeslot", new { data = "jrHelp" }, null)
+                    </dt>
+                    <dd>Set up the different shift times your staff can work</dd>
+                </dl>
+            </div>
+            <div class="form-group col-xs-12">
+                <dl>
+                    <dt>
+                        @Html.ActionLink("3 - Waiters", "ManageWaiters", "Waiter", new { data = "jrHelp" }, null)
+                    </dt>
+                    <dd>Add or Edit your staff's details</dd>
+                </dl>
+            </div>
+            <div class="form-group col-xs-12">
+                <dl>
+                    <dt>
+                        @Html.ActionLink("4 - Schedule", "ManageSchedule", "ShiftSchedule", new { data = "jrHelp" }, null)
+                    </dt>
+                    <dd>Add, Edit or Delete shifts and keep track of who is working when</dd>
+                </dl>
+            </div>
+            <div class="form-group row-fluid col-xs-12">
+                <dl>
+                    <dt>
+                        5 - Dashboard
+                    </dt>
+                </dl>
+                <div class="form-group row-fluid col-xs-12">
+                    <dl>
+                        <dt>
+                            <a class="dashboardItemHelp" data-tab-id="#notificationsTab" data-role-section-id="notificationsHelp">5.2 Notifications</a>
+                        </dt>
+                        <dd>See important notifications from the schedule</dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <a class="dashboardItemHelp" data-tab-id="#calculateTab" data-help-section-id="calculateHelp" data-role="samepage">5.2 - Calculate</a>
+                        </dt>
+                        <dd>Calculate hours worked and pay due</dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <a class="dashboardItemHelp" data-tab-id="#settingsTab" data-help-section-id="settingsHelp" data-role="samepage">5.3 - Settings</a>
+                        </dt>
+                        <dd>Set up important schedule settings</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Notifications*@
+<script type="text/javascript">
+    $(function () {
+        var settings = new Settings();
+        settings.Load();
+
+        $(".dashboardItemHelp").click(function () {
+            var tabId = $(this).attr("data-tab-id");
+            var helpId = $(this).attr("data-help-section-id");
+
+            $(tabId).click();
+            $("#helpIcon").attr("joyride", helpId);
+            $("#helpIcon").click();
+        });
+
+    });
+
+</script>
+

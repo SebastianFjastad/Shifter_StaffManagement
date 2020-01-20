@@ -1,0 +1,49 @@
+﻿@using Framework
+@using Shifter.Waiters.Web.Utils
+@model IEnumerable<Shifter.Service.Api.Dtos.ShiftDto>
+@{
+    var shifts = Model;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Update shift</h4>
+</div>
+<div class="modal-body">
+    @if (shifts.Any())
+    {
+        var firstShift = shifts.First();
+        <div style="font-weight:bold;font-size: 16px;">@firstShift.StartTime.ToString(SharedConstants.ShortDateFormat)</div>
+
+        <form id="shiftToUpdateForm">
+            <select id="shiftToUpdate" class="form-control" name="shiftId">
+                @foreach (var shift in shifts)
+                {
+                    var makeAvailable = !shift.IsAvailable;
+
+                    <option value="@shift.Id" data-shift-availability="@makeAvailable">@shift.GetFormattedTime()</option>
+                }
+            </select>
+            @Html.Hidden("makeAvailable")
+        </form>
+    }
+    else
+    {
+        <div>Shift not found...</div>
+    }
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button id="updateShiftAvailability" type="button" class="btn btn-primary"></button>
+</div>
+
+@Html.Hidden("elementForAjax")
+
+
+<script type="text/javascript">
+    $(function () {
+        var shiftsToUpdate = new ShiftsToUpdate();
+        shiftsToUpdate.Load();
+    })
+</script>
+

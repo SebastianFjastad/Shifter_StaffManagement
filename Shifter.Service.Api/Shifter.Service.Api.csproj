@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5EB2D32-EFB8-4440-9943-FAECF120DFD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shifter.Service.Api</RootNamespace>
+    <AssemblyName>Shifter.Service.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dtos\CommentDto.cs" />
+    <Compile Include="Dtos\StaffUnavailabilityRecordDto.cs" />
+    <Compile Include="Dtos\StaffTypeDto.cs" />
+    <Compile Include="Dtos\StaffHours.cs" />
+    <Compile Include="Dtos\WallPostDto.cs" />
+    <Compile Include="Requests\CopyShiftsRequest.cs" />
+    <Compile Include="Requests\RegistrationRequest.cs" />
+    <Compile Include="Requests\UpdateLastActiveDateRequest.cs" />
+    <Compile Include="Requests\FindUserAccountRequest.cs" />
+    <Compile Include="Requests\ConfirmNotificationReceivedRequest.cs" />
+    <Compile Include="Requests\LoadByStaffAndRestaurantRequest.cs" />
+    <Compile Include="Requests\FindManagerRequest.cs" />
+    <Compile Include="Requests\LoadStaffHoursRequest.cs" />
+    <Compile Include="Requests\LoadStaffMemberRequest.cs" />
+    <Compile Include="Requests\LoadWallPostsRequest.cs" />
+    <Compile Include="Requests\UpdateSeeByRequest.cs" />
+    <Compile Include="Requests\SaveManagerRequest.cs" />
+    <Compile Include="Requests\SaveWallPostRequest.cs" />
+    <Compile Include="Requests\ShiftsRequest.cs" />
+    <Compile Include="Requests\SendFeedbackRequest.cs" />
+    <Compile Include="Requests\UpdateManagerPasswordRequest.cs" />
+    <Compile Include="Requests\SaveNewPasswordRequest.cs" />
+    <Compile Include="Requests\DeleteUnavailabilityRequest.cs" />
+    <Compile Include="Requests\SaveUnavailabilityRequest.cs" />
+    <Compile Include="Responses\PasswordResetResponse.cs" />
+    <Compile Include="Responses\FindUserAccountResponse.cs" />
+    <Compile Include="Responses\GenericServiceResponse.cs" />
+    <Compile Include="Requests\GenericStaffRequest.cs" />
+    <Compile Include="Requests\DeleteShiftTimeSlotRequest.cs" />
+    <Compile Include="Requests\AssignShiftRequest.cs" />
+    <Compile Include="Requests\DeleteShiftRequest.cs" />
+    <Compile Include="Responses\AuthenticationResponse.cs" />
+    <Compile Include="Dtos\ProfileSummary.cs" />
+    <Compile Include="Dtos\ProfileType.cs" />
+    <Compile Include="Responses\StaffTypeCollectionResponse.cs" />
+    <Compile Include="Responses\StaffHoursResponse.cs" />
+    <Compile Include="Responses\CopyShiftsResponse.cs" />
+    <Compile Include="Responses\LoadWallPostResponse.cs" />
+    <Compile Include="Responses\WallPostCollectionResponse.cs" />
+    <Compile Include="Services\IGroupAdminService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\IManagerService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\AuthenticationRequest.cs" />
+    <Compile Include="Responses\LoadManagerResponse.cs" />
+    <Compile Include="Dtos\ManagerDto.cs" />
+    <Compile Include="Dtos\RestaurantDto.cs" />
+    <Compile Include="Services\IRestaurantService.cs" />
+    <Compile Include="Responses\LoadRestaurantResponse.cs" />
+    <Compile Include="Requests\LoadRestuarantByManagerRequest.cs" />
+    <Compile Include="Requests\LoadRestuarantByIdRequest.cs" />
+    <Compile Include="Services\ICommsService.cs" />
+    <Compile Include="Services\ISettingsService.cs" />
+    <Compile Include="Dtos\SettingsDto.cs" />
+    <Compile Include="Responses\LoadSettingsResponse.cs" />
+    <Compile Include="Requests\LoadSettingsByRestaurantRequest.cs" />
+    <Compile Include="Requests\SaveSettingsRequest.cs" />
+    <Compile Include="Services\IShiftService.cs" />
+    <Compile Include="Services\IShiftTemplateService.cs" />
+    <Compile Include="Services\IShiftTimeSlotService.cs" />
+    <Compile Include="Services\IStaffService.cs" />
+    <Compile Include="Requests\LoadStaffListRequest.cs" />
+    <Compile Include="Requests\LoadWaiterByUsernameAndPasswordRequest.cs" />
+    <Compile Include="Requests\LoadWaiterByUsernameRequest.cs" />
+    <Compile Include="Requests\SaveWaiterRequest.cs" />
+    <Compile Include="Dtos\ShiftDto.cs" />
+    <Compile Include="Dtos\StaffDto.cs" />
+    <Compile Include="Responses\StaffCollectionResponse.cs" />
+    <Compile Include="Responses\StaffResponse.cs" />
+    <Compile Include="Requests\LoadShiftTemplateByRestaurantIdRequest.cs" />
+    <Compile Include="Responses\LoadShiftTemplateResponse.cs" />
+    <Compile Include="Requests\SaveShiftTemplatesRequest.cs" />
+    <Compile Include="Dtos\ShiftTemplateDto.cs" />
+    <Compile Include="Dtos\ShiftTimeSlotDto.cs" />
+    <Compile Include="Requests\LoadShiftTimeSlotByIdRequest.cs" />
+    <Compile Include="Requests\LoadTimeSlotsCollectionRequest.cs" />
+    <Compile Include="Responses\LoadShiftTimeslotCollectionResponse.cs" />
+    <Compile Include="Responses\LoadShiftTimeslotResponse.cs" />
+    <Compile Include="Requests\SaveShiftTimeSlotRequest.cs" />
+    <Compile Include="Requests\LoadAvailableShiftRequest.cs" />
+    <Compile Include="Requests\LoadShiftByWaiterRequest.cs" />
+    <Compile Include="Responses\LoadShiftCollectionResponse.cs" />
+    <Compile Include="Requests\LoadShiftsRequest.cs" />
+    <Compile Include="Responses\LoadShiftResponse.cs" />
+    <Compile Include="Requests\SaveShiftRequest.cs" />
+    <Compile Include="Requests\UpdateShiftAvailabilityRequest.cs" />
+    <Compile Include="Requests\UpdateWaiterPasswordRequest.cs" />
+    <Compile Include="Requests\LoadRestaurantByStaffRequest.cs" />
+    <Compile Include="Requests\GenericEntityRequest.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Requests\UpdateUserAccountRequest.cs" />
+    <Compile Include="Services\IWallService.cs" />
+    <Compile Include="Requests\SaveCommentRequest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{82D29879-9AB7-441B-84F7-BC462AA039B2}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

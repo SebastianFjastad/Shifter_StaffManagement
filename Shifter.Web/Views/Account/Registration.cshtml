@@ -1,0 +1,122 @@
+﻿@model Shifter.Web.ViewModels.Account.RegistrationViewModel
+@using Recaptcha.Web
+@using Recaptcha.Web.Mvc
+<style>
+    .hideElement {
+        display: none;
+    }
+
+    .showElement {
+        display: block;
+    }
+</style>
+
+<h2>Registration</h2>
+@{
+    var showErrors = Model.HasErrors ? "showElement" : "hideElement";
+}
+<form action="@Url.Action("RegisterCompany", "Account")" method="post" role="form" class="form-horizontal">
+    <div id="errorBox" class="alert alert-danger alert-dismissable @showErrors">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <div id="errorMessages">
+            @foreach (var error in Model.Errors)
+            {
+                <div>@error.Text</div>
+            }
+        </div>
+    </div>
+    <div class="">
+        <fieldset>
+            <div class="form-group">
+                <div class="editor-label col-sm-3">
+                    @Html.LabelFor(m => m.CompanyName, "Company Name", new { @class = "control-label" })
+                </div>
+                <div class="editor-field col-sm-9">
+                    @Html.TextBoxFor(m => m.CompanyName, new { @Class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CompanyName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="editor-label col-sm-3">
+                    @Html.LabelFor(m => m.CompanyAddress, "Address", new { @class = "control-label" })
+                </div>
+                <div class="editor-field col-sm-9">
+                    @Html.TextBoxFor(m => m.CompanyAddress, new { @Class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CompanyAddress)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="editor-label col-sm-3">
+                    @Html.LabelFor(m => m.ManagerFirstName, "First Name", new { @class = "control-label" })
+                </div>
+                <div class="editor-field col-sm-9">
+                    @Html.TextBoxFor(m => m.ManagerFirstName, new { @Class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ManagerFirstName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="editor-label col-sm-3">
+                    @Html.LabelFor(m => m.ManagerLastName, "Last Name", new { @class = "control-label" })
+                </div>
+                <div class="editor-field col-sm-9">
+                    @Html.TextBoxFor(m => m.ManagerLastName, new { @Class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ManagerLastName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="editor-label col-sm-3">
+                    @Html.LabelFor(m => m.ManagerEmailAddress, "Email", new { @class = "control-label" })
+                </div>
+                <div class="editor-field col-sm-9">
+                    @Html.TextBoxFor(m => m.ManagerEmailAddress, new { @Class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ManagerEmailAddress)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="editor-label col-sm-3">
+                    @Html.LabelFor(m => m.ManagerUsername, "Username", new { @class = "control-label" })
+                </div>
+                <div class="editor-field col-sm-9">
+                    @Html.TextBoxFor(m => m.ManagerUsername, new { @Class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ManagerUsername)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.ManagerPassword, "Password", new { @class = "control-label" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.PasswordFor(m => m.ManagerPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ManagerPassword)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.ManagerPasswordConfirm, "Confirm Password", new { @class = "control-label" })
+                </div>
+                <div class="col-sm-9">
+                    @Html.PasswordFor(m => m.ManagerPasswordConfirm, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ManagerPasswordConfirm)
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="row form-group rowForSubmitButton">
+        <div class="col-sm-offset-3 col-sm-4">
+            <div class="g-recaptcha" data-sitekey="6Le1ggETAAAAAHXbB_e0MNMG3m8tEryHZc80R5vC"></div>
+        </div>
+        <div class="col-sm-3">
+            <input type="submit" style="margin-top: 15px;" class="btn btn-lg btn-success" value="Register" />
+        </div>
+    </div>
+</form>
+
+
+

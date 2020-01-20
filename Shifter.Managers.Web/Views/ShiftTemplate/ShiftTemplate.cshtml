@@ -1,0 +1,82 @@
+﻿@using Framework.CustomTypes
+@using Framework.Extensions
+@model Shifter.Managers.Web.ViewModels.ShiftTemplateViewModel
+
+<style>
+    .shifttemplate-day {
+        width: 230px;
+        margin-right: 10px;
+        float: left;
+    }
+    .dayTemplateBody {
+        padding: 8px;
+    }
+    .templateTimeslotRow {
+        width: 150px
+    }
+    .templateTimeslotPadding {
+        padding-left: 5px !important;
+    }
+    .waiterNumberSelector {
+        width:70px;cursor: pointer;
+    }
+    .saveCancelButtons {
+        min-width: 86px;
+    }
+</style>
+
+@{var templateIndex = -1;}
+
+<form action="@Url.Action("SaveShiftTemplate", "ShiftTemplate")" method="post">
+    <div class="row">
+        @foreach (DayOfWeekStartingAtMonday day in Enum.GetValues(typeof(DayOfWeekStartingAtMonday)))
+        {
+            <div class="panel panel-default shifttemplate-day">
+                <div class="panel-heading">@day</div>
+                <div class="panel-body dayTemplateBody">
+
+                    @foreach (var timeSlot in Model.TimeSlots)
+                    {
+                        templateIndex++;
+
+                        <div class="row form-group">
+                            <div class="col-xs-8 templateTimeslotRow timeslotTemplateHelp">
+                                <div class="form-control">
+                                    <div>@timeSlot.StartTime.HoursAndMinutes() - @timeSlot.EndTime.HoursAndMinutes()</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 templateTimeslotPadding">
+                                <select class="form-control waiterNumberSelector numberShiftsTemplateHelp" name="ShiftTemplates[@templateIndex].NumberOfWaitersNeeded">
+                                    @for (var i = 0; i <= 20; i++)
+                                    {
+                                        var selected = Model.GetNumberOfShifts(day, timeSlot.Id) == i ? "selected" : string.Empty;
+                                        <option value="@i" @selected>@i</option>
+                                    }
+                                </select>
+                                <input type="hidden" name="ShiftTemplates[@templateIndex].DayOfWeek" value="@day" />
+                                <input type="hidden" name="ShiftTemplates[@templateIndex].Id" value="@Model.GetTemplateId(templateIndex)" />
+                                <input type="hidden" name="ShiftTemplates[@templateIndex].TimeSlot.Id" value="@timeSlot.Id" />
+                                <input type="hidden" name="ShiftTemplates[@templateIndex].RestaurantId" value="@Model.RestaurantId" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row col-xs-12">
+        <input class="btn btn-success col-xs-2 col-sm-offset-1 saveCancelButtons" type="submit" value="Save" />
+        <div class="btn btn-default col-xs-2 col-xs-offset-1 saveCancelButtons">
+            @Html.ActionLink("Cancel", "LoadShiftTemplate", "ShiftTemplate")
+        </div>
+    </div>
+
+</form>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#helpIcon").attr("joyride", "templateHelp");
+        })
+    </script>
+}
+

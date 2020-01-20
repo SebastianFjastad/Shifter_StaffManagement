@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title Shifter</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/bootstrap")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryui")
+        @{Html.RenderPartial("AppRoutes");}
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("Shifter Admin", "ManageWaiters", "Waiter")</p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Waiters", "ManageWaiters", "Waiter")</li>
+                            <li>@Html.ActionLink("Shift Template", "LoadShiftTemplate", "ShiftTemplate")</li>
+                            <li>@Html.ActionLink("Shift Timeslots", "ManageTimeslots", "ShiftTimeslot")</li>
+                            <li>@Html.ActionLink("Shift Schedule", "ManageSchedule", "ShiftSchedule")</li>
+                            <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+                <img class="ajax-loader" id="ajaxLoader" src="../../Content/images/loader.gif"/>
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Shifter</p>
+                </div>
+            </div>
+        </footer>
+
+        <script type="text/javascript">
+            var dataService;
+            $(function () {
+                dataService = new DataService();
+            });
+        </script>
+
+        @Scripts.Render("~/bundles/appLibs")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

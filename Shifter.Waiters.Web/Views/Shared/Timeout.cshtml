@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Timeout";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<style>
+    .btnWidth {
+        min-width: 80px
+    }
+    .paddingTop {
+        padding-top: 20px !important    
+    }
+</style>
+<div class="row-fluid">
+    <p class="paddingTop">Your session has timed out.</p>
+    <p>You have been logged out.</p>
+    <div class="btn btn-default btnWidth">@Html.ActionLink("OK", "Logout", "Account")</div>
+</div>
+

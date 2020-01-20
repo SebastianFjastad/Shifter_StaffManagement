@@ -1,0 +1,95 @@
+﻿@using System.Web.Script.Serialization
+@model Shifter.Waiters.Web.ViewModels.NotificationsViewModel
+
+<style>
+    .paddingTop {
+        padding-top: 10px;
+    }
+
+    .closeButton {
+        cursor: pointer;
+    }
+
+    .removeAll {
+        margin: 10px;
+        cursor: pointer;
+    }
+</style>
+<div class="paddingTop">
+    @if (Model.Notifications.Any())
+    {
+        var index = 0;
+        <form id="clearNotificationsForm" method="POST" action="@Url.Action("ConfirmAllNotificationsReceived", "Notifications")">
+            <div id="clearAll" class="removeAll"><span class="confirmAll glyphicon glyphicon-remove"></span> Clear all</div>
+            @foreach (var message in Model.Notifications.Where(n => n.Tag.IsNotNull()))
+            {
+                <input type="hidden" name="notifications[@index].Key" value="@message.Tag" />
+                <input type="hidden" name="notifications[@index].Value" value="@message.Hint" />
+                index++;
+            }
+        </form>
+        <ul class="list-group">
+            @foreach (var message in Model.Notifications.Where(n => n.Tag.IsNotNull()))
+            {
+                <li class="list-group-item">@message.Text <span class="confirmNotification glyphicon glyphicon-remove closeButton" data-notification-id="@message.Tag" data-notification-hint="@message.Hint"></span></li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="paddingTop">You don't have any notifications at the moment.</div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".confirmNotification").unbind("click");
+        $("#removeAllNotification").unbind("click");
+
+        $(".confirmNotification").click(function () {
+            var notificationId = $(this).attr("data-notification-id");
+            var notificationHint = $(this).attr("data-notification-hint");
+
+            confirmNotifications(notificationId, notificationHint);
+        });
+
+        $("#clearAll").click(function () {
+            $("#clearNotificationsForm").submit();
+        });
+
+        amplify.subscribe("MessagesUpdated", updateMessages);
+
+        function updateMessages() {
+            $.ajax({
+                url: "@Url.Action("LoadNotifications", "Notifications")",
+                type: "GET",
+                success: function (result) {
+                    $("#notificationsContainer").html(result);
+                },
+                error: function (e) {
+                    shifterUx.ShowModal("Oops..", "Sorry an error occurred reloading notifications.");
+                }
+            });
+        }
+
+        function confirmNotifications(notificationId, notificationHint) {
+            var params = { notificationId: notificationId, notificationHint: notificationHint };
+            $.ajax({
+                url: "@Url.Action("ConfirmNotificationsReceived", "Notifications")",
+                type: "POST",
+                data: params,
+                success: function (result) {
+                    if (result.HasErrors) {
+                        shifterUx.ShowModal("Oops..", "Sorry an error occurred removing notifications.");
+                    } else {
+                        amplify.publish("CheckForMessages", false);
+                    }
+                },
+                error: function (e) {
+                    shifterUx.ShowModal("Oops..", "Sorry an error occurred removing notifications.");
+                }
+            });
+        }
+
+    });
+</script>

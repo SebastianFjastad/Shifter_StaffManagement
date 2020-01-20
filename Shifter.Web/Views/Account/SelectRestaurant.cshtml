@@ -1,0 +1,22 @@
+﻿@model Shifter.Web.ViewModels.Restaurants.RestaurantsViewModel
+
+<style>
+    .btnRestaurant {
+        width: 100px;
+    }
+    .btnRestaurant:hover {
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+<h2>Choose Restaurant</h2>
+@foreach (var restaurant in Model.Restaurants)
+{
+    <div class="row-fluid form-group">
+        <div class="btn btn-primary btnRestaurant">
+            @Html.ActionLink(restaurant.Name, "SetRestaurant", new { restaurantId = restaurant.Id })
+        </div>
+    </div>
+}
+

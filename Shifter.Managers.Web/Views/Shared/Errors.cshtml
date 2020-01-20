@@ -1,0 +1,8 @@
+﻿@model Framework.Notifications.NotificationCollection
+
+<div>
+    @foreach (var error in Model)
+    {
+        <div>@error.Text</div>
+    }
+</div>

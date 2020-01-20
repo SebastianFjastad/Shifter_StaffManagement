@@ -1,0 +1,42 @@
+﻿@using Framework
+@using Microsoft.Ajax.Utilities
+@model Shifter.Managers.Web.ViewModels.ShiftTimeslotViewModel
+
+<div class="panelMinWidth">
+    <div class="form-group row currentTimeslotsHelp">
+        <div class="col-xs-12">
+            <h4 class="floatLeft">Current timeslots</h4>
+            <div class="btn btn-default newTimeslotButton"><span class="glyphicon glyphicon-plus" style="font-size: 16px;"></span> New timeslot</div>
+        </div>
+    </div>
+    <div class="">
+        @foreach (var timeslot in Model.Timeslots)
+        {
+            <div class="form-group row timeslotRow">
+                <div class="col-sm-7 col-xs-5 timeslotContainer">
+                    <label class="form-control timeslotTime">@timeslot.StartTime.ToString(SharedConstants.TimeFormat) - @timeslot.EndTime.ToString(SharedConstants.TimeFormat)</label>
+                </div>
+                <div class="col-xs-3">
+                    @*Delete hover visible on large screen*@
+                    <input type="button" class="btn btn-default deleteTimeslot hidden-phone hidden-tablet timeslot" value="Delete" data-id="@timeslot.Id"
+                           data-times="@timeslot.StartTime.ToString(SharedConstants.TimeFormat) - @timeslot.EndTime.ToString(SharedConstants.TimeFormat)"
+                           data-staff-type-id="@timeslot.StaffTypeId"
+                           data-restaurant-id="@timeslot.RestaurantId" />
+                    @*Delete visible on tablet and mobile*@
+                    <input type="button" class="btn btn-default deleteTimeslot visible-phone visible-tablet" value="Delete" data-id="@timeslot.Id"
+                           data-times="@timeslot.StartTime.ToString(SharedConstants.TimeFormat) - @timeslot.EndTime.ToString(SharedConstants.TimeFormat)"
+                           data-staff-type-id="@timeslot.StaffTypeId"
+                           data-restaurant-id="@timeslot.RestaurantId" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div>
+        @foreach (var error in Model.Errors)
+        {
+            <div class="alert alert-danger marginTop">@error</div>
+        }
+    </div>
+</div>

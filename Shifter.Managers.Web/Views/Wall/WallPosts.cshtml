@@ -1,0 +1,6 @@
+﻿@model Shifter.Managers.Web.ViewModels.Wall.WallPostsViewModel
+
+@foreach (var wallPost in Model.WallPosts)
+{
+    Html.RenderPartial("ReadOnlyWallPost", wallPost);
+}

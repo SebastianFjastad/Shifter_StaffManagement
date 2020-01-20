@@ -1,0 +1,69 @@
+﻿@using Framework
+@using Framework.Extensions
+@using Shifter.Waiters.Web.Utils
+@model Shifter.Waiters.Web.ViewModels.ShiftSchedule.ShiftsToTakeViewModel
+
+@Html.Hidden("elementForAjax")
+
+@if (Model.Shifts.Any())
+{
+    var distinctShifts = Model.DistinctShiftsByStartTime;
+
+    if (distinctShifts.Count() > 1)
+    {
+        <div class="singleShiftDateHeading">@Model.DateOfShiftsToTake.ToString(SharedConstants.ShortDateFormat)</div>
+    }
+    else if (distinctShifts.Count() == 1)
+    {
+        var shift = distinctShifts.First();
+
+        <div>
+            <span class="bold">@shift.GetFormattedTime()</span>
+            on
+            <span class="bold">@Model.DateOfShiftsToTake.ToString(SharedConstants.ShortDateFormat)</span>
+        </div>
+    }
+
+    <form id="takeShiftForm">
+        @if (distinctShifts.Count() > 1)
+        {
+            <select id="timeslotToTake" class="form-control">
+                @foreach (var shift in distinctShifts)
+                {
+                    <option value="@shift.StartTime">@shift.GetFormattedTime()</option>
+                }
+            </select>
+        }
+
+        @if (Model.Shifts.Count() == 1)
+        {
+            var shift = Model.Shifts.First();
+            if (shift.Staff.IsNotNull())
+            {
+                <div>From: @shift.Staff.FullName</div>
+            }
+            <input type="hidden" name="shiftId" value="@shift.Id" />
+        }
+        else
+        {
+            <select id="takeFromWaiter" class="form-control selectShift" name="shiftId">
+                @foreach (var shift in Model.Shifts)
+                {
+                    var name = shift.Staff.IsNotNull() ? shift.Staff.FullName : "Available";
+                    <option class="waiters" data-start-time="@shift.StartTime" value="@shift.Id">@name</option>
+                }
+            </select>
+        }
+    </form>
+}
+else
+{
+    <div>Shift not found...</div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        var shiftsToTake = new ShiftsToTake();
+        shiftsToTake.Load();
+    })
+</script>

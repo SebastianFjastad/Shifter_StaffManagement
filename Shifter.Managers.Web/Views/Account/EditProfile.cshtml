@@ -1,0 +1,133 @@
+﻿@model  Shifter.Shared.WebClient.ViewModels.PersonalDetailsViewModel
+
+<div>
+    @{
+        var showErrors = Model.HasErrors ? "showElement" : "hideElement";
+        var showMessage = Model.HasMessages ? "showElement" : "hideElement";
+    }
+
+    <form action="@Url.Action("SaveProfile", "Account")" method="post" role="form" class="form-horizontal">
+
+        <div id="errorBox" class="alert alert-danger alert-dismissable timeoutAlert @showErrors">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <div id="errorMessages">
+                @foreach (var error in Model.Errors)
+                {
+                    <div>@error.Text</div>
+                }
+            </div>
+        </div>
+        <div id="infoBox" class="alert alert-success alert-dismissable timeoutAlert @showMessage">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <div id="infoMessages">
+                @foreach (var msg in Model.Messages)
+                {
+                    <div>@msg.Text</div>
+                }
+            </div>
+        </div>
+
+        <p>
+            IMPORTANT: Make sure to keep all your details up do date with the form below.
+        </p>
+
+        <div class="row-fluid">
+            <fieldset>
+                <div class="row form-group">
+                    <div class="editor-label col-sm-3">
+                        @Html.LabelFor(m => m.FirstName, "First Name", new { @class = "control-label" })
+                    </div>
+                    <div class="editor-field col-sm-9">
+                        @Html.TextBoxFor(m => m.FirstName, new { @Class = "form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="editor-label col-sm-3">
+                        @Html.LabelFor(m => m.LastName, "Last Name", new { @class = "control-label" })
+                    </div>
+                    <div class="editor-field col-sm-9">
+                        @Html.TextBoxFor(m => m.LastName, new { @Class = "form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="editor-label col-sm-3">
+                        @Html.LabelFor(m => m.EmailAddress, "Email", new { @class = "control-label" })
+                    </div>
+                    <div class="editor-field col-sm-9">
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @Class = "form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(m => m.EmailAddress)
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="editor-label col-sm-3">
+                        @Html.LabelFor(m => m.ContactNumber, "Cell Number", new { @class = "control-label" })
+                    </div>
+                    <div class="editor-field col-sm-9">
+                        @Html.TextBoxFor(m => m.ContactNumber, new { @Class = "form-control" })
+                    </div>
+                    <div>
+                        @Html.ValidationMessageFor(m => m.ContactNumber)
+                    </div>
+                </div>
+
+                <div class="panel-group row" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapsePassword">
+                                <h4 class="panel-title">
+                                    Change Password
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapsePassword" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row form-group">
+                                    <div class="col-sm-3">
+                                        @Html.LabelFor(m => m.NewPassword, new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-sm-9">
+                                        @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.NewPassword)
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sm-3">
+                                        @Html.LabelFor(m => m.ConfirmPassword, "Confirm Password", new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-sm-9">
+                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="row rowForSubmitButton" >
+            <input type="submit" class="btn btn-success col-xs-2 col-xs-offset-3" value="Save" />
+        </div>
+    </form>
+    @section scripts {
+        <script type="text/javascript">
+            $(function() {
+                setTimeout(function() { $(".timeoutAlert").slideUp(); }, 4000);
+            })
+        </script>
+    }
+    
+</div>

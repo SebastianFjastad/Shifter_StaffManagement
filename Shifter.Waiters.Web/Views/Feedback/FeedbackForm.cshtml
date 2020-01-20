@@ -1,0 +1,69 @@
+﻿@using Framework.Notifications
+@model Shifter.Waiters.Web.ViewModels.FeedbackViewModel
+<style>
+    .messageContainer {
+        padding: 5px;
+    }
+    .messageContainer.errors {
+        color: red;
+    }
+    .messageContainer.info {
+        color: green;
+    }
+    .rowForSubmitButton {
+        margin-top: 10px !important;
+    }
+     .submitButton {
+        min-width: 120px;
+    }
+</style>
+
+<div>
+    <form action="@Url.Action("SendFeedback", "Feedback")" method="post" role="form" class="form-horizontal">
+        <div class="row-fluid">
+            <fieldset>
+                <div class="row form-group">
+                    <div class="control-label col-sm-3">
+                        <label>Type</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <select name="title" class="form-control pointer">
+                            <option>Suggestion</option>
+                            <option>Bug</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="control-label col-sm-3">
+                        <label>Message</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <textarea name="message" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group ">
+            <div class="col-sm-2 col-sm-offset-3 rowForSubmitButton">
+                <input type="submit" class="btn btn-success submitButton" value="Send" />
+            </div>
+        </div>
+        <div class="messageContainer">
+            @foreach (var msg in Model.Notifications)
+            {
+                if (msg.Severity == NotificationSeverity.Error)
+                {
+                    <div class="errors alert alert-danger text-center">@msg.Text</div>
+
+                }
+                else
+                {
+                    <div class="info alert alert-success text-center">@msg.Text</div>
+
+                }
+            }
+        </div>
+    </form>
+</div>
+

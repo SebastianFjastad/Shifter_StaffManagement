@@ -1,0 +1,793 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Framework</name>
+    </assembly>
+    <members>
+        <member name="T:Framework.CustomTypes.DayOfWeekStartingAtMonday">
+            <summary>
+            None zero based enum for the days of the week starting on Monday
+            </summary>
+        </member>
+        <member name="M:Framework.Email.EmailUtils.CreateMailMessage(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a mail message from the provided params
+            </summary>
+            <param name="subject"></param>
+            <param name="body"></param>
+            <param name="fromEmailAddress"></param>
+            <param name="toEmailAddress"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Framework.Extensions.EnumExtentions.Description(System.Enum)">
+            <summary>
+            Gets the description form the enum, if one is not available then returns the enum string value
+            </summary>
+        </member>
+        <member name="T:Framework.Rules.ClientErrorCodes">
+            <summary>
+            Used to identify who the error messages are meant for or relevant to
+            </summary>
+        </member>
+        <member name="T:Framework.SharedConstants">
+            <summary>
+            General constants such as date formats that are used by many of the projects
+            </summary>
+        </member>
+        <member name="F:Framework.SharedConstants.DateFormat">
+            <summary>
+            Date format, eg. "Sat 19 Apr 2014"
+            </summary>
+        </member>
+        <member name="F:Framework.SharedConstants.ShortDateFormatWithDay">
+            <summary>
+            Date format, eg. "Sat 19 Apr"
+            </summary>
+        </member>
+        <member name="F:Framework.SharedConstants.ShortDateFormat">
+            <summary>
+            Date format, eg. "19 Apr"
+            </summary>
+        </member>
+        <member name="F:Framework.SharedConstants.ShortDayFormat">
+            <summary>
+            Date format, eg. "Sat 19"
+            </summary>
+        </member>
+        <member name="F:Framework.SharedConstants.TimeFormat">
+            <summary>
+            Time format, eg. "02:57" (24 hour time for timespan but not datetime)
+            </summary>
+        </member>
+        <member name="F:Framework.SharedConstants.DateTimeSpecificTimeFormat">
+            <summary>
+            Time format, eg. "23:57" (24 hour for date time, will throw exception if used on timespan) 
+            </summary>
+        </member>
+        <member name="F:Framework.SharedConstants.DeleteNotification">
+            <summary>
+            Notification type hint for shift deleted notification
+            </summary>
+        </member>
+        <member name="F:Framework.SharedConstants.AssignNotification">
+            <summary>
+            Notification type hint for shift assigned notification
+            </summary>
+        </member>
+        <member name="M:Framework.Domain.Entity.IsTransient">
+            <summary>
+            Indicates if the instance is new or whether it has already been persisted by checking if the id > 0
+            </summary>
+        </member>
+        <member name="T:Framework.Encryption.ICryptoService">
+            <summary>
+            Interface for Simple Crypto Service
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.ICryptoService.Compute(System.String,System.String)">
+            <summary>
+            Compute the hash that will utilize the passed salt
+            </summary>
+            <param name="textToHash">The text to be hashed</param>
+            <param name="salt">The salt to be used in the computation</param>
+            <returns>the computed hash: HashedText</returns>
+        </member>
+        <member name="M:Framework.Encryption.ICryptoService.GenerateSalt">
+            <summary>
+            Generates a salt with default salt size
+            </summary>
+            <returns>the generated salt</returns>
+        </member>
+        <member name="P:Framework.Encryption.ICryptoService.HashIterations">
+            <summary>
+            Gets or sets the number of iterations the hash will go through
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.ICryptoService.SaltSize">
+            <summary>
+            Gets or sets the size of salt that will be generated if no Salt was set
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.ICryptoService.PlainText">
+            <summary>
+            Gets or sets the plain text to be hashed
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.ICryptoService.HashedText">
+            <summary>
+            Gets the base 64 encoded string of the hashed PlainText
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.ICryptoService.Salt">
+            <summary>
+            Gets or sets the salt that will be used in computing the HashedText. This contains both Salt and HashIterations.
+            </summary>
+        </member>
+        <member name="T:Framework.Encryption.IPasswordEncryptor">
+            <summary>
+            Defines the Contractual Obligations for a Password Encryptor.
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.IPasswordEncryptor.GenerateHash(System.String,System.String)">
+            <summary>
+            Generates a password hash
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.IPasswordEncryptor.GenerateSalt">
+            <summary>
+            Generates salt
+            </summary>
+        </member>
+        <member name="T:Framework.Encryption.IPasswordGenerator">
+            <summary>
+            Defines the Contractual Obligations for a PasswordGenerator.
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.IPasswordGenerator.NewPassword">
+            <summary>
+            Defines the method signature for generating a new password.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Framework.Encryption.PasswordEncryptor">
+            <summary>
+            Represents a class used to generate a password hash based on PBKDF2 (Password-Based Key Derivation Function 2)  
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.PasswordEncryptor.GenerateHash(System.String,System.String)">
+            <summary>
+            Generates a password hash
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.PasswordEncryptor.GenerateSalt">
+            <summary>
+            Generates salt
+            </summary>
+        </member>
+        <member name="T:Framework.Encryption.PBKDF2">
+            <summary>
+            Represents the Password-Based Key Derivation Function 2 implementation
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.PBKDF2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Framework.Encryption.PBKDF2"/> class.
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.PBKDF2.Compute(System.String,System.String)">
+            <summary>
+            Compute the hash that will utilize the passed salt
+            </summary>
+            <param name="textToHash">The text to be hashed</param>
+            <param name="salt">The salt to be used in the computation</param>
+            <returns>
+            the computed hash: HashedText
+            </returns>
+        </member>
+        <member name="M:Framework.Encryption.PBKDF2.GenerateSalt">
+            <summary>
+            Generates a salt with default salt size
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.PBKDF2.HashIterations">
+            <summary>
+            Gets or sets the number of iterations the hash will go through
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.PBKDF2.SaltSize">
+            <summary>
+            Gets or sets the size of salt that will be generated if no Salt was set
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.PBKDF2.PlainText">
+            <summary>
+            Gets or sets the plain text to be hashed
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.PBKDF2.HashedText">
+            <summary>
+            Gets the base 64 encoded string of the hashed PlainText
+            </summary>
+        </member>
+        <member name="P:Framework.Encryption.PBKDF2.Salt">
+            <summary>
+            Gets or sets the salt that will be used in computing the HashedText. This contains both Salt and HashIterations.
+            </summary>
+        </member>
+        <member name="T:Framework.Extensions.TimeSpanExtensions">
+            <summary>
+            Additional extensions on <see cref="T:System.TimeSpan"/>
+            </summary>
+        </member>
+        <member name="M:Framework.Extensions.TimeSpanExtensions.HoursAndMinutes(System.TimeSpan)">
+            <summary>
+            Returns the time in a format hh:mm
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.StringEncryptor.Decrypt(System.String)">
+            <summary>
+            Overload for the Decrypt method which doesn't require a key and rather uses the default pass phrase
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.StringEncryptor.Encrypt(System.String)">
+            <summary>
+            Overload for the Encrypt method which doesn't require a key and rather uses the default pass phrase
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.StringEncryptor.Encrypt(System.String,System.String)">
+            <summary>
+            Encrypts a string using a passphrase
+            </summary>
+        </member>
+        <member name="M:Framework.Encryption.StringEncryptor.Decrypt(System.String,System.String)">
+            <summary>
+            Decrypts a string using a passphrase
+            </summary>     
+        </member>
+        <member name="T:System.DateTimeExtensions">
+            <summary>
+            Additional extensions on <see cref="T:System.DateTime"/>
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.IsToday(System.DateTime)">
+            <summary>
+            Returns if the date is today's date
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.StartOfWeek(System.DateTime)">
+            <summary>
+            Returns the start of the current week (From Monday not Sunday)
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.StartOfMonth(System.DateTime)">
+            <summary>
+            Returns the start of the month.
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.EndOfMonth(System.DateTime)">
+            <summary>
+            Returns the end of the month
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.WeekOfYear(System.DateTime)">
+            <summary>
+            Returns the week of year for the specified date
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.WeekOfYear(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Returns the week of year for the specified date with the specified start day
+            </summary>
+        </member>
+        <member name="T:System.Collections.Generic.IEnumerableExtensions">
+            <summary>
+            Additional extensions on System.Collections.IEnumerable`1
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.IEnumerableExtensions.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})">
+            <summary>
+             Determines whether a sequence contains a specified element(s) by using a predicate
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.IEnumerableExtensions.Randomize``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Creates a randomized order enumerable from the source enumerable
+            </summary>
+        </member>
+        <member name="T:System.ObjectExtensions">
+            <summary>
+            Additional extensions on <see cref="T:System.Object"/>
+            </summary>
+        </member>
+        <member name="M:System.ObjectExtensions.IsNotNull(System.Object)">
+            <summary>
+            Indicates whether this instance is not a null value
+            </summary>
+        </member>
+        <member name="M:System.ObjectExtensions.IsNull(System.Object)">
+            <summary>
+            Indicates whether this instance is a null value
+            </summary>
+        </member>
+        <member name="M:System.ObjectExtensions.GetValue(System.Object,System.String)">
+            <summary>
+            Returns the specified property value
+            </summary>
+        </member>
+        <member name="M:System.ObjectExtensions.GetValue``1(System.Object,System.String)">
+            <summary>
+            Returns the specified property value typed to T
+            </summary>
+        </member>
+        <member name="M:System.ObjectExtensions.Serialize(System.Object)">
+            <summary>
+            Returns a serialized object in XML string
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectExtensions.AsXML(System.Object)">
+            <summary>
+            Returns a serialized object in XML string
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectExtensions.Copy``1(``0)">
+            <summary>
+            Creates a copy of the object
+            </summary>
+        </member>
+        <member name="T:System.StringExtensions">
+            <summary>
+            Additional extensions on <see cref="T:System.String"/>
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.IsEmailAddress(System.String)">
+             <summary>
+            Returns the boolean check of whether a string can be considered as an email address.
+             </summary>
+        </member>
+        <member name="M:System.StringExtensions.SafeTrim(System.String)">
+            <summary>
+            Removes leading and training white-spaces from the System.String object.
+            Safe to call on null or empty instances.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.Ellipse(System.String,System.Int32)">
+            <summary>
+            Limits this string to a given length and applies an ellipse
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.FormatString(System.String,System.Object[])">
+            <summary>
+            Formats this string passing in the specified parameters
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.IsNullOrEmpty(System.String)">
+            <summary>
+            Indicates whether this string is null or empty
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.IsNotNullOrEmpty(System.String)">
+            <summary>
+            Indicates whether this string is not null or empty
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.RemoveSpaces(System.String)">
+            <summary>
+            Strips spaces from string.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtensions.Remove(System.String,System.Char[])">
+            <summary>
+            Removes occurrences of characters, provided in the array
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.IsSameAs(System.String,System.String)">
+            <summary>
+            Performs a case insensitive invariant culture comparison of two strings.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.FirstLetterToUppercase(System.String)">
+            <summary>
+            Converts the first letter of the first word to uppercase
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.IsNumber(System.String)">
+            <summary>
+            Indicates whether this string is a number
+            </summary>
+        </member>
+        <member name="T:Framework.Notifications.Extensions.NotificationCollectionExtensions">
+            <summary>
+            Extends a NotificationCollection instance with convenience methods
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.Extensions.NotificationCollectionExtensions.AddException(Framework.Notifications.NotificationCollection,System.Exception)">
+            <summary>
+            Provides the ability to add a  <see cref="T:System.Exception"/> as a Notification message
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.Extensions.NotificationCollectionExtensions.AddError(Framework.Notifications.NotificationCollection,System.String)">
+            <summary>
+            Provides the ability to add an error as a Notification message.
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.Extensions.NotificationCollectionExtensions.AddError(Framework.Notifications.NotificationCollection,System.String,System.String)">
+            <summary>
+            Provides the ability to add an error as a Notification message with an optional error code.
+            </summary>
+        </member>
+        <member name="T:Framework.Notifications.Extensions.NotificationExtensions">
+            <summary>
+            Notification Extension Methods
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.Extensions.NotificationExtensions.HasErrors(System.Collections.Generic.IEnumerable{Framework.Notifications.Notification})">
+            <summary>
+            Indicates whether the notification has errors
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.Extensions.NotificationExtensions.HasMessages(System.Collections.Generic.IEnumerable{Framework.Notifications.Notification})">
+            <summary>
+            Gets a value indicating whether this instance has <see cref="T:Framework.Notifications.Notification"/>.
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.Extensions.NotificationExtensions.HasWarnings(System.Collections.Generic.IEnumerable{Framework.Notifications.Notification})">
+            <summary>
+            Gets a value indicating whether this instance contains <see cref="T:Framework.Notifications.Notification"/> with a severity of Warning.
+            </summary>
+        </member>
+        <member name="T:Framework.Guard">
+            <summary>
+            Guards are used to give more meaningful exceptions
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.ArgumentNotNull(System.Object,System.String)">
+            <summary>
+            Validates that the <paramref name="argument"/> is not null.
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.InstanceNotNull(System.Object,System.String)">
+            <summary>
+            Validates that the <paramref name="value"/> is not null.
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.ArgumentNotEmpty(System.Guid,System.String)">
+            <summary>
+            Validates that the <paramref name="value"/> is not empty.
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.ArgumentNotEmpty(System.Collections.ICollection,System.String)">
+            <summary>
+            Validates that the <paramref name="collection"/> is not empty.
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.ArgumentNotEmpty``1(System.Collections.Generic.ICollection{``0},System.String)">
+            <summary>
+            Validates that the generic <paramref name="collection"/> is not empty.
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.ArgumentNotEmpty(System.String,System.String)">
+            <summary>
+            Validates that the string <paramref name="argument"/> is not empty.
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.EnumValueIsDefined(System.Type,System.Object,System.String)">
+            <summary>
+            Validates that an enum <paramref name="value" /> is defined.
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.IsTrue(System.Boolean)">
+            <summary>
+            Asserts that the <paramref name="test"/> is true.
+            </summary>
+        </member>
+        <member name="M:Framework.Guard.IsTrue(System.Boolean,System.Exception)">
+            <summary>
+            Asserts that the <paramref name="test"/> is true. Throw the specified exception if false.
+            </summary>
+        </member>
+        <member name="T:Framework.Notifications.Notification">
+            <summary>
+            A notification or message.
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.Notification.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Framework.Notifications.Notification"/> class.
+            </summary>
+            <param name="text">The text.</param>
+        </member>
+        <member name="M:Framework.Notifications.Notification.#ctor(System.String,Framework.Notifications.NotificationSeverity)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Framework.Notifications.Notification"/> class.
+            </summary>
+            <param name="text">The text.</param>
+            <param name="severity">The severity.</param>
+        </member>
+        <member name="M:Framework.Notifications.Notification.#ctor(System.String,Framework.Notifications.NotificationSeverity,System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Framework.Notifications.Notification"/> class.
+            </summary>
+            <param name="text">The text.</param>
+            <param name="severity">The severity.</param>
+            <param name="tag">The Tag.</param>
+        </member>
+        <member name="M:Framework.Notifications.Notification.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="M:Framework.Notifications.Notification.Create(System.String,Framework.Notifications.NotificationSeverity)">
+            <summary>
+            Creates a new instance of <see cref="T:Framework.Notifications.Notification"/>.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="notificationSeverity">The notification severity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Framework.Notifications.Notification.Create(System.String,System.String,Framework.Notifications.NotificationSeverity)">
+            <summary>
+            Creates a new instance of <see cref="T:Framework.Notifications.Notification"/>.
+            </summary>
+        </member>
+        <member name="P:Framework.Notifications.Notification.Severity">
+            <summary>
+            The <see cref="T:Framework.Notifications.NotificationSeverity"/> of the message
+            </summary>
+        </member>
+        <member name="P:Framework.Notifications.Notification.Text">
+            <summary>
+            The <see cref="T:Framework.Notifications.Notification"/> text.
+            </summary>
+        </member>
+        <member name="P:Framework.Notifications.Notification.Code">
+            <summary>
+            The <see cref="T:Framework.Notifications.Notification"/> code.
+            </summary>
+        </member>
+        <member name="P:Framework.Notifications.Notification.Hint">
+            <summary>
+            Gets and sets the message hint
+            </summary>
+        </member>
+        <member name="P:Framework.Notifications.Notification.Grouping">
+            <summary>
+            Gets and sets grouping data
+            </summary>
+        </member>
+        <member name="P:Framework.Notifications.Notification.Tag">
+            <summary>
+            Used to apply additional taggable data to a notification
+            </summary>
+        </member>
+        <member name="T:Framework.Notifications.NotificationCollection">
+            <summary>
+            Collection of <see cref="T:Framework.Notifications.Notification"/>.
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.HasMessages">
+            <summary>
+            Gets a value indicating whether this instance has <see cref="T:Framework.Notifications.Notification"/>.
+            </summary>
+            <value>
+            	<c>true</c> if this instance has <see cref="T:Framework.Notifications.Notification"/>; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.Errors">
+            <summary>
+            Returns the notifications that are errors
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.Errors(System.String)">
+            <summary>
+            Returns the notifications that are errors for an error code
+            </summary>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.HasWarnings">
+            <summary>
+            Gets a value indicating whether this instance contains <see cref="T:Framework.Notifications.Notification"/> with a severity of Warning.
+            </summary>
+            <value>
+            	<c>true</c> if this instance has warnings; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.HasErrors">
+            <summary>
+            Indicates whether the notification has errors
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.AddMessage(Framework.Notifications.Notification)">
+            <summary>
+            Adds a <see cref="T:Framework.Notifications.Notification"/> to the <see cref="T:Framework.Notifications.NotificationCollection"/>
+            </summary>
+            <param name="notification">The message to add</param>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.AddMessage(Framework.Notifications.Notification,System.Int32)">
+            <summary>
+            Adds a <see cref="T:Framework.Notifications.Notification"/> to the <see cref="T:Framework.Notifications.NotificationCollection"/> at the specified index
+            </summary>
+            <param name="notification">The <see cref="T:Framework.Notifications.Notification"/> to add</param>
+            <param name="index">The index to insert the message at</param>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.AddMessage(System.Collections.Generic.IEnumerable{Framework.Notifications.Notification})">
+            <summary>
+            Adds a <see cref="T:Framework.Notifications.Notification"/> list to the <see cref="T:Framework.Notifications.NotificationCollection"/>
+            </summary>
+            <param name="notifications">The message to add</param>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Formats the value of the current instance using the specified format.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> containing the value of the current instance in the specified format.
+            </returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.CreateEmpty">
+            <summary>
+            Creates an empty <see cref="T:Framework.Notifications.NotificationCollection"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.Create(Framework.Notifications.Notification)">
+            <summary>
+            Creates a <see cref="T:Framework.Notifications.NotificationCollection"/> that contains <paramref name="notification"/>
+            </summary>
+            <param name="notification">The notification.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.Create(System.Collections.Generic.IList{Framework.Notifications.Notification})">
+            <summary>
+            Creates a <see cref="T:Framework.Notifications.NotificationCollection"/> that contains the entire list from <paramref name="notifications"/>
+            </summary>
+            <param name="notifications">The notifications.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.Add(Framework.Notifications.NotificationCollection,Framework.Notifications.NotificationCollection)">
+            <summary>
+            Adds one <see cref="T:Framework.Notifications.NotificationCollection"/> to another <see cref="T:Framework.Notifications.NotificationCollection"/>
+            </summary>
+            <param name="left">The first <see cref="T:Framework.Notifications.NotificationCollection"/></param>
+            <param name="right">The second <see cref="T:Framework.Notifications.NotificationCollection"/></param>
+            <returns></returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.op_Addition(Framework.Notifications.NotificationCollection,Framework.Notifications.NotificationCollection)">
+            <summary>
+            Implements the operator +.
+            </summary>
+            <param name="left">The result1.</param>
+            <param name="right">The result2.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.op_Addition(Framework.Notifications.NotificationCollection,Framework.Notifications.Notification)">
+            <summary>
+            Implements the operator + on a <see cref="T:Framework.Notifications.NotificationCollection"/> and a <see cref="T:Framework.Notifications.Notification"/>.
+            </summary>
+            <param name="left">The result1.</param>
+            <param name="right">The result2.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.op_Implicit(Framework.Notifications.NotificationCollection)~System.String">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Framework.Notifications.NotificationCollection"/> to <see cref="T:System.String"/>.
+            </summary>
+            <param name="notification">The notification.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.System#Collections#Generic#IEnumerable{Framework#Notifications#Notification}#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Framework.Notifications.NotificationCollection.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="P:Framework.Notifications.NotificationCollection.Payload">
+            <summary>
+            Gets and sets the Payload
+            </summary>
+        </member>
+        <member name="T:Framework.Notifications.NotificationSeverity">
+            <summary>
+            Gives an indication of the status or severity of a <see cref="T:Framework.Notifications.Notification"/>
+            </summary>
+        </member>
+        <member name="F:Framework.Notifications.NotificationSeverity.Information">
+            <summary>
+            <see cref="T:Framework.Notifications.Notification"/> contains informational detail.
+            </summary>
+        </member>
+        <member name="F:Framework.Notifications.NotificationSeverity.Warning">
+            <summary>
+            <see cref="T:Framework.Notifications.Notification"/> contains a warning.
+            </summary>
+        </member>
+        <member name="F:Framework.Notifications.NotificationSeverity.Error">
+            <summary>
+            <see cref="T:Framework.Notifications.Notification"/> contains an error.
+            </summary>
+        </member>
+        <member name="T:Framework.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Framework.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Framework.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Framework.Properties.Resources.ArgumentCannotBeEmpty">
+            <summary>
+              Looks up a localized string similar to The provided argument {0} cannot be empty.
+            </summary>
+        </member>
+        <member name="P:Framework.Properties.Resources.CollectionCannotBeEmpty">
+            <summary>
+              Looks up a localized string similar to The provided collection {0} cannot be empty.
+            </summary>
+        </member>
+        <member name="P:Framework.Properties.Resources.InvalidEnumValue">
+            <summary>
+              Looks up a localized string similar to The value of the argument {0} provided for the enumeration {1} is invalid.
+            </summary>
+        </member>
+        <member name="P:Framework.Properties.Resources.ResultWasFalse">
+            <summary>
+              Looks up a localized string similar to Result expected to be true but was false.
+            </summary>
+        </member>
+        <member name="T:Framework.Rules.ValidationContextKeys">
+            <summary>
+            Validation context keys
+            </summary>
+        </member>
+        <member name="T:Framework.Utilities.IObjectMapper`2">
+             <summary>
+            Defines a typed  assembler "mapping" contract from one type to another.
+            <para>See http://www.martinfowler.com/eaaCatalog/dataTransferObject.html for more information regarding the assembler pattern.</para>
+             </summary>
+        </member>
+        <member name="M:Framework.Utilities.IObjectMapper`2.MapObjects(`0)">
+            <summary>
+            Defines the signature of an operation which maps two objects.
+            </summary>
+        </member>
+        <member name="M:Framework.Utilities.IObjectMapper`2.MapObjects(`0,`1)">
+            <summary>
+            Defines the signature of an operation which maps an object to an existing object.
+            </summary>
+        </member>
+    </members>
+</doc>

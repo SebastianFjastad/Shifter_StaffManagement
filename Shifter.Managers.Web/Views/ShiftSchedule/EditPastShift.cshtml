@@ -1,0 +1,80 @@
+﻿@using Framework
+@model Shifter.Managers.Web.ViewModels.ShiftEditorViewModel
+    
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="shiftPopupTitle">Edit shift</h4>
+</div>
+
+<div class="modal-body">
+    <form id="shiftForm" role="form" class="form-horizontal">
+        @Html.HiddenFor(model => model.EditForDate)
+        @Html.HiddenFor(model => model.Shift.Id)
+
+        <div class="row">
+            <div class="form-group">
+
+                <label class="col-xs-2 control-label timeLabel">@Model.Shift.StartTime.ToString(SharedConstants.ShortDateFormat)</label>
+
+                <div class="col-xs-3 startTimeContainer">
+                    <div class="row">
+                        <label class="col-xs-2 timePickerLable">Start Time</label>
+                        <div class="input-append bootstrap-timepicker col-sm-6">
+                            <div class="input-group col-xs-5 timePicker">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                <input name="SelectedStartTime" id="timepickerstart" type="text" class="input-small form-control pointer" value="@Model.Shift.StartTime.ToString(SharedConstants.DateTimeSpecificTimeFormat)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-xs-2 timePickerLable marginTop">End Time</label>
+                        <div class="input-append bootstrap-timepicker col-sm-6">
+                            <div class="input-group col-xs-5 timePicker">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                <input name="SelectedEndTime" id="timepickerend" type="text" class="input-small form-control pointer" value="@Model.Shift.EndTime.ToString(SharedConstants.DateTimeSpecificTimeFormat)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 paddingLeft">
+                    <select class="form-control waiterSelectPast" id="selectedWaiter" name="Shift.Waiter.Id">
+                        <option>Available..</option>
+                        @foreach (var waiter in Model.Waiters)
+                        {
+                            var selected = Model.CheckIfWaiterOwnsShift(waiter.Id);
+                            <option @selected value="@waiter.Id">@waiter.FirstName</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button type="button" id="savePastShift" class="btn btn-success">Save</button>
+    @if (!Model.Shift.IsTransient())
+    {
+        <button type="button" id="deleteShift" class="btn btn-primary">Delete</button>
+    }
+</div>
+
+<div id="elementForAjax">
+    @*Do not delete*@
+</div>
+
+<script type="text/javascript">
+    $(function(parameters) {
+        $('#timepickerstart').timepicker({
+            showMeridian: false,
+            showInputs: false
+        });
+        $('#timepickerend').timepicker({
+            showMeridian: false
+        });
+    })
+</script>

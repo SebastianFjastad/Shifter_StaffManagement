@@ -1,0 +1,176 @@
+﻿@using Framework
+@using Framework.CustomTypes
+@using Shifter.Domain
+@using Shifter.Shared.WebClient.Helpers
+@model Shifter.Managers.Web.ViewModels.ShiftScheduleViewModel
+
+@Styles.Render("~/Content/ShiftSchedule/css")
+
+<div class="scheduleContainer">
+    <div class="well row no-print">
+        <div class="col-xs-5 row">
+            <div class="col-xs-7"><b style="color:#999999; font-size:20px;">Schedule for:</b></div>
+            <select class="col-xs-5 form-control" id="selectedStaffTypeId" multiple="multiple">
+                @{
+                    foreach (var staffType in Model.StaffTypes)
+                    {
+                        <option data-staff-type-name="@staffType.Name" value="@staffType.Id">
+                            @staffType.Name
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-xs-2">
+            <div style="margin-left: 50%; height: 40px; background: rgb(207, 207, 207); width: 1px;"></div>
+        </div>
+        <div class="col-xs-5 row">
+            <select id="quickEditTimeslotSelect" class="col-xs-5 form-control quickEditTimeslotSelect" style="width: 150px; cursor: pointer">
+                <option value="0">Edit timeslot</option>
+                @{
+                    foreach (var timeslot in Model.TimeSlots)
+                    {
+                        var timslotForType = "timslotForType_" + @timeslot.StaffTypeId;
+                        <option class="@timslotForType timslots" data-start-time="@timeslot.StartTime.ToString(SharedConstants.TimeFormat)" data-end-time="@timeslot.EndTime.ToString(SharedConstants.TimeFormat)">
+                            @timeslot.GetFormattedTime(SharedConstants.TimeFormat)
+                        </option>
+                    }
+                }
+            </select>
+
+            <button id="copySchedule" type="button" class="col-xs-5 col-xs-push-2 btn btn-default">Copy week</button>
+        </div>
+    </div>
+
+    <div class="well row">
+        <a id="printWeek" class="no-print printicon"><span class="glyphicon glyphicon-print"></span></a>
+        <div class="row btn-group no-print" style="margin-left: 92px;">
+            <button class="btn btn-default backButton">@Html.ActionLink("Back", "ManageSchedule", "ShiftSchedule", new { startWeek = Model.CurrentWeek.AddDays(-7) }, null)</button>
+            @for (var weekNumber = 1; weekNumber <= 4; weekNumber++)
+            {
+                var weekSelector = "weekTab" + weekNumber;
+
+                <div class="btn btn-default tabWidth tabItem weekTabsScheduleHelp @weekSelector" data-week-number="@weekNumber"
+                     data-week-from="@Model.GetWeekDate(DayOfWeekStartingAtMonday.Monday, weekNumber).ToString(SharedConstants.DateFormat)"
+                     data-week-to="@Model.GetWeekDate(DayOfWeekStartingAtMonday.Sunday, weekNumber).ToString(SharedConstants.DateFormat)">
+                    @Dates.GetDateFromTo(weekNumber, Model.CurrentWeek)
+                </div>
+            }
+            <button class="btn btn-default forwardButton">@Html.ActionLink("Forward", "ManageSchedule", "ShiftSchedule", new { startWeek = Model.CurrentWeek.AddDays(+7) }, null)</button>
+        </div>
+        
+        <div class="row" style="margin-left: 115px;">
+            @for (var weekNumber = 1; weekNumber <= 4; weekNumber++)
+            {
+                <table>
+                    <tr class="tabbedContent" id="week_@weekNumber">
+                        @foreach (DayOfWeekStartingAtMonday day in Enum.GetValues(typeof(DayOfWeekStartingAtMonday)))
+                        {
+                            var daysDate = Model.GetWeekDate(day, weekNumber);
+
+                            var pastPresentHint = daysDate < DateTime.Now.Date ? "datePassed" : "dateNotPassed";
+                            <td class="day-group">
+                                <div class="panelDay dayOfWeekScheduleHelp">
+                                    <div class="text-center @pastPresentHint">
+                                        @day.ToString().Substring(0, 3)
+                                        @daysDate.ToString(SharedConstants.ShortDateFormat)
+                                    </div>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            }
+        </div>
+
+        @*Shift Results*@
+        <div class="row">
+            <div id="shiftScheduleResults">
+                <div class="loadingLabel">Loading...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Shift Popup*@
+<!-- Modal -->
+<div class="modal fade" id="addEditShift" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="shiftContainer">
+
+        </div>
+    </div>
+</div>
+
+<!-- Schedule copy -->
+<div class="modal fade" id="scheduleCopyPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" id="scheduleCopyErrors">
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-7" style="margin-top: 5px;">
+                        <label class="control-label">Copy shifts from <span id="currentWeekForCopy"></span> to:</label>
+                    </div>
+                    <div class="col-xs-5">
+                        <select id="selectedWeek" class="form-control">
+                            <option>Select a week..</option>
+                            @for (var weekNumber = 1; weekNumber <= 4; weekNumber++)
+                            {
+                                var weekSelector = "weekTab" + weekNumber;
+
+                                <option class="weekOption" data-week-tab-selector="@weekSelector" data-week-from="@Model.GetWeekDate(DayOfWeekStartingAtMonday.Monday, weekNumber).ToString(SharedConstants.DateFormat)" data-week-to="@Model.GetWeekDate(DayOfWeekStartingAtMonday.Sunday, weekNumber).ToString(SharedConstants.DateFormat)">
+                                    @Dates.GetDateFromTo(weekNumber, Model.CurrentWeek)
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7" style="margin-top: 5px;">
+                        <label class="control-label" style="color:#999999; font-size:18px;">(<span id="copyScheduleForStaffType"></span> shifts)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="copyScheduleConfirm" class="btn btn-primary">Copy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Schedule copy confirm -->
+<div class="modal fade" id="scheduleCopyOverridePopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="forceCopyErrors"></div>
+                <div>
+                    There are already shifts for the week want to copy to, are you sure you want to overwrite them?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="overrideCopyWarnings" class="btn btn-primary">Overwrite</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var shiftSchedule = new ShiftSchedule();
+            shiftSchedule.shiftScheduleChangedTopic = "@MessageTopics.ShiftScheduleChanged";
+
+            shiftSchedule.Load();
+
+            $("#helpIcon").attr("joyride", "scheduleHelp");
+
+            //$('.dropdown-toggle').dropdown();
+        })
+    </script>
+}

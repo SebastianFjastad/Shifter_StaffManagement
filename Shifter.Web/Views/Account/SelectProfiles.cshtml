@@ -1,0 +1,26 @@
+﻿@model Shifter.Web.ViewModels.Account.ProfilesViewModel
+
+@{
+    ViewBag.Title = "Select Profile";
+}
+
+<style>
+    .profileType {
+        width: 100px;
+    }
+    a.profileType:hover {
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+<h2>Choose your profile</h2>
+<div>
+    @foreach (var profile in Model.Profiles)
+    {
+        <div class="row-fluid form-group">
+            <a class="btn btn-primary profileType" href="@Url.Action("SetProfile", new { profileId = profile.ProfileId, profileType = profile.ProfileType, url = profile.AppUrl})">@profile.ProfileType.ToString()</a>
+        </div>
+    }
+</div>
+

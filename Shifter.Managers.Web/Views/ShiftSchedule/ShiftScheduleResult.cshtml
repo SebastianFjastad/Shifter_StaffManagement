@@ -1,0 +1,168 @@
+﻿@model ShiftScheduleResultsViewModel
+@using Framework
+@using Framework.CustomTypes
+@using Shifter.Managers.Web.ViewModels
+
+<div class="col-xs-12">
+    @{ var firstStaffType = Model.GetFirstStaffType();}
+    @if (firstStaffType.IsNotNull())
+    {
+        <span class="firstStaffTypeLabelColumn">@firstStaffType.Name</span>
+    }
+    <table class="">
+        @foreach (var staffType in Model.StaffTypes)
+        {
+            if (Model.Waiters.Any(w => w.StaffType.Id == staffType.Id && w.StaffType.Id != firstStaffType.Id))
+            {
+                <tr class="row-shifts">
+                    <td class="labelColumn staffTypeLabelColumn">
+                        <span class="staffTypeLabelColumn">@staffType.Name</span>
+                    </td>
+                </tr>
+            }
+
+            foreach (var waiter in Model.Waiters.Where(w => w.StaffType.Id == staffType.Id).ToList())
+            {
+                <tr class="row-shifts">
+                    <td class="labelColumn">
+                        @waiter.FirstName
+                    </td>
+                    @foreach (var day in Enum.GetValues(typeof(DayOfWeekStartingAtMonday)))
+                    {
+                        var editableIndicator = string.Empty;
+                        var shiftDate = string.Empty;
+                        var shifts = Model.FindShifts((DayOfWeekStartingAtMonday)day, waiter.Id);
+                        var containerId = string.Format("{0}_{1}", waiter.Id, day);
+
+                        if (Model.WeekStartDate.IsNotNull())
+                        {
+                            var daysToAdd = (int)day - 1; //enum is not 0 based
+                            editableIndicator = waiter.IsUnavailableOnDate(Model.WeekStartDate.Value.AddDays(daysToAdd)) ? "unavailable" : "shiftContainer";
+                            shiftDate = Model.WeekStartDate.Value.AddDays(daysToAdd).ToString(SharedConstants.DateFormat);
+                        }
+
+                        <td class="shiftCell">
+                            <div id="@containerId" class="waiterViewShift shift-result-day @editableIndicator text-center" data-shift-date="@shiftDate" data-waiter-id="@waiter.Id">
+                                @if (shifts.IsNotNull() && shifts.Any())
+                                {
+                                    Html.RenderPartial("ShiftsResult", new ShiftsResultViewModel(shifts));
+                                }
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="shiftEditorPopup" tabindex="-1" role="dialog" aria-labelledby="shift editor" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="shiftEditorBody">
+
+        </div>
+    </div>
+</div>
+
+<div id="loadingImageHolder" style="display: none">
+    <img src="~/Content/images/loaderSmall.gif" height="20" width="20" alt="busy" />
+</div>
+
+<script type="text/javascript">
+    $(function () {
+
+        amplify.subscribe("ManualEditSuccess", closeEditPopup);
+
+        $("#shiftEditorPopup").on('hidden.bs.modal', function (e) {
+            $(".selectedTab").click();
+        });
+
+        function closeEditPopup() {
+            $("#shiftEditorPopup").modal("hide");
+        }
+
+        function getExistingShift(shiftContainer) {
+            var startTime = $(".quickEditTimeslotSelect > option:selected").attr("data-start-time");
+            var endTime = $(".quickEditTimeslotSelect > option:selected").attr("data-end-time");
+
+            var shift = shiftContainer.find(".existingShift[data-start-time='" + startTime + "'][data-end-time='" + endTime + "']");
+            return shift;
+        }
+
+        $(".shiftContainer").hover(function () {
+            if ($(".quickEditTimeslotSelect > option:selected").attr("data-start-time")) {
+                if (getExistingShift($(this)).length > 0) {
+                    $(this).removeClass('addCursor');
+                    $(this).addClass('removeCursor');
+                } else {
+                    $(this).removeClass('removeCursor');
+                    $(this).addClass('addCursor');
+                }
+            } else {
+                $(this).css('cursor', 'pointer');
+            }
+        });
+
+        $(".shiftContainer").click(function () {
+            var waiterId = $(this).attr("data-waiter-id");
+            var date = $(this).attr("data-shift-date");
+
+            if ($(".quickEditTimeslotSelect > option:selected").attr("data-start-time")) {
+                var existingShift = getExistingShift($(this));
+                var containerId = $(this).attr("id");
+
+                if (existingShift.length > 0) {
+                    var shiftId = existingShift.attr("data-shift-id");
+                    var deleteParams = { shiftId: shiftId, waiterId: waiterId, containerId: containerId };
+                    dataService.DeleteShift(deleteParams, updateShift);
+                } else {
+                    var startTime = $(".quickEditTimeslotSelect > option:selected").attr("data-start-time");
+                    var endTime = $(".quickEditTimeslotSelect > option:selected").attr("data-end-time");
+                    var params = { startTime: startTime, endTime: endTime, shiftDate: date, waiterId: waiterId, containerId: containerId };
+
+                    $(this).html($("#loadingImageHolder").html());
+                    dataService.SaveShift(params, updateShift);
+                }
+            } else {
+                var params = { waiterId: waiterId, date: date };
+                dataService.EditShifts(params, openShiftEditor);
+            }
+        });
+
+        function openShiftEditor(data) {
+            $("#shiftEditorBody").html(data);
+
+            $("#shiftEditorPopup").modal("show");
+        }
+
+        function updateShift(result) {
+            $(".row-shifts").height("auto");
+
+            if (result.ShiftContainerId != "") {
+                $("#" + result.ShiftContainerId).html(result.Payload);
+                setShiftRowHeights();
+            }
+        }
+
+        setShiftRowHeights();
+
+        $("[data-toggle=tooltip]").tooltip({ delay: { show: 700, hide: 200 }, timeout: 200 });
+
+        function setShiftRowHeights() {
+            $(".row-shifts").each(function () {
+                var row = $(this);
+                var maxHeight = Math.max.apply(null, $(".shift-result-day", row).map(function () { return row.outerHeight(); }).get());
+                row.height(maxHeight);
+                //$(".shift-result-day", this).css("height", maxHeight);
+            });
+        }
+
+
+    });
+
+</script>
+
+<div id="elementForAjax">
+    @*Do not delete*@
+</div>

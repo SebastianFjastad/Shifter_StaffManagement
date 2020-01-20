@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FB3A6600-D213-440F-AC82-A7F8A46A042B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shifter.Domain</RootNamespace>
+    <AssemblyName>Shifter.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\Shared\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\Shared\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Entities\Comment.cs" />
+    <Compile Include="Model\Entities\EmailTemplate.cs" />
+    <Compile Include="Model\Entities\Manager.cs" />
+    <Compile Include="Model\Entities\Restaurant.cs" />
+    <Compile Include="Model\Entities\EmailNotification.cs" />
+    <Compile Include="Model\Entities\Settings.cs" />
+    <Compile Include="Model\Entities\TrackedDeletedShift.cs" />
+    <Compile Include="Model\Entities\TrackedShiftAssignment.cs" />
+    <Compile Include="Model\Entities\Shift.cs" />
+    <Compile Include="Model\Entities\ShiftTemplate.cs" />
+    <Compile Include="Model\Entities\ShiftTimeslot.cs" />
+    <Compile Include="Model\Entities\UserAccount.cs" />
+    <Compile Include="Model\Entities\StaffType.cs" />
+    <Compile Include="Model\Entities\Staff.cs" />
+    <Compile Include="Model\Entities\StaffUnavailabilityRecord.cs" />
+    <Compile Include="Model\Entities\WallPost.cs" />
+    <Compile Include="Model\IProfile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ICommsDomainService.cs" />
+    <Compile Include="Services\IAuthenticationDomainService.cs" />
+    <Compile Include="Services\IManagerDomainService.cs" />
+    <Compile Include="Services\IRestaurantDomainService.cs" />
+    <Compile Include="Services\ISettingsDomainService.cs" />
+    <Compile Include="Services\IShiftDomainService.cs" />
+    <Compile Include="Services\IShiftTemplateDomainService.cs" />
+    <Compile Include="Services\IShiftTimeSlotDomainService.cs" />
+    <Compile Include="Services\IStaffDomainService.cs" />
+    <Compile Include="Services\AuthenticationDomainService.cs" />
+    <Compile Include="Services\IWallDomainService.cs" />
+    <Compile Include="Services\ManagerDomainService.cs" />
+    <Compile Include="Services\RestaurantDomainService.cs" />
+    <Compile Include="Services\SettingsDomainService.cs" />
+    <Compile Include="Services\ShiftDomainService.cs" />
+    <Compile Include="Services\ShiftTemplateDomainService.cs" />
+    <Compile Include="Services\ShiftTimeSlotDomainService.cs" />
+    <Compile Include="Services\CommsDomainService.cs" />
+    <Compile Include="Services\StaffDomainService.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Services\WallDomainService.cs" />
+    <Compile Include="Validation\Rules\RestaurantRules.cs" />
+    <Compile Include="Validation\Rules\StaffUnavailabilityRules.cs" />
+    <Compile Include="Validation\Rules\ShiftRules.cs" />
+    <Compile Include="Validation\Rules\StaffRules.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{82D29879-9AB7-441B-84F7-BC462AA039B2}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

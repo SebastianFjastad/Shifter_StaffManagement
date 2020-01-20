@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>myShifter - The shift management solution</title>
+    <meta itemprop="keywords" name="keywords" content="myShifter, shifter, shift management, shifting, shift work, staff management, shifting, scheduling system, staff scheduling software, people management, organizing, organize staff, restaurant shift work, schedule staff hours, schedule, work calendar, solve shift problems, shift calendar, shift management assistance">
+    <meta content="Shift management application. For the manager - 
+          provides single view to add/remove shifts, supports multiple staff types, 
+          add/remove staff from the system, post messages to staff news feeds.
+          For the staff - view & swap shifts, view notifications on the news feed." 
+          itemprop="description" name="description" property="og:description">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <style>
+        .ajax-loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 9999;
+            margin-left: -64px; /* -1 * image width / 2 */
+            margin-top: -64px; /* -1 * image height / 2 */
+            display: none;
+        }
+
+        .menuBackground {
+            background-color: aliceblue;
+            height: 70px;
+            padding-top: 10px;
+        }
+
+        body {
+            padding-top: 0 !important;
+        }
+
+        .secondaryHeading {
+            color: lightgray;
+            margin-top: 1px;
+            font-size: 37px;
+        }
+
+        #showLogOn {
+            margin-top: 10px;
+        }
+        /* hide secondryHeader on small screens */
+        @@media screen and (min-width: 0) and (max-width: 767px) {
+            .secondaryHeading {
+                display: none;
+            }
+
+            #showLogOn {
+                display: inline-block;
+            }
+        }
+
+        @@media screen and (min-width: 768px) {
+            .secondaryHeading {
+                display: block;
+            }
+
+            #showLogOn {
+                display: none;
+            }
+        }
+    </style>
+    @{
+        Html.RenderPartial("Favicons");
+    }
+</head>
+<body>
+    <div class="container">
+        <div class="row menuBackground">
+            <div class="col-xs-3"><img src="~/Content/images/MyShifter180x50.png" width="180" height="50" alt="myShifter" /></div>
+
+            <div class="col-xs-9">
+                <div class="secondaryHeading pull-right">
+                    shift management solution
+                </div>
+                <div id="showLogOn" class="pull-right">
+                    <button class="btn btn-primary">Log On</button>
+                </div>
+            </div>
+        </div>
+        @RenderBody()
+        <img class="ajax-loader" id="ajaxLoader" src="~/Content/images/loader.gif" height="128" width="128" />
+        <div>
+            <hr>
+            <footer>
+                <p>&copy; MyShifter @System.DateTime.Now.ToString("yyyy")</p>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $(function () {
+            $(document).ajaxStart(function () {
+                setBusyState(true);
+            });
+
+            $(document).ajaxStop(function () {
+                setBusyState(false);
+            });
+
+            function setBusyState(isBusy) {
+                if (isBusy) {
+                    $("#ajaxLoader").show();
+                } else {
+                    $("#ajaxLoader").hide();
+                }
+            };
+        });
+    </script>
+</body>
+</html>
